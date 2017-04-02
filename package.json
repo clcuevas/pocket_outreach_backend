@@ -1,0 +1,35 @@
+{
+  "name": "pocket_outreach_backend",
+  "version": "0.0.1",
+  "description": "backend server for Pocket Outreach a simple web app designed to connect homeless people to resources near them in the Seattle area",
+  "main": "server.js",
+  "dependencies": {
+    "cli-color": "^1.2.0",
+    "compression": "^1.6.2",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.2",
+    "moment": "^2.18.1",
+    "winston": "^2.3.1"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-standard": "^7.1.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^2.1.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "lint": "./node_modules/.bin/eslint server.js && ./node_modules/.bin/eslint ./api/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/clcuevas/pocket_outreach_backend.git"
+  },
+  "author": "Michae Bowen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/clcuevas/pocket_outreach_backend/issues"
+  },
+  "homepage": "https://github.com/clcuevas/pocket_outreach_backend#readme"
+}

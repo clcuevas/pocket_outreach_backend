@@ -1,0 +1,52 @@
+{
+    "env": {
+        "es6": true,
+        "node": true,
+        "mocha": true
+    },
+    "extends": "eslint:recommended",
+    "rules": {
+        "indent": [
+            "error",
+            2
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "no-console": [
+            "warn",
+            {
+                "allow": [
+                    "warn",
+                    "error"
+                ]
+            }
+        ],
+        "no-unused-vars": 1,
+        "strict": 2,
+        "eol-last": [
+            "error",
+            "always"
+        ]
+    },
+    "no-multiple-empty-lines": [
+        2,
+        {
+            "max": 2,
+            "maxEOF": 1
+        }
+    ],
+    "plugins": [
+        "standard",
+        "promise"
+    ]
+}

@@ -6,6 +6,7 @@ const app = express();
 const compression = require('compression');
 const moment = require('moment');
 const clc = require('cli-color');
+const winston = require('winston');
 
 const port = process.env.PORT;
 const serverStartTime = moment(new Date()).format('LLLL');
@@ -13,5 +14,5 @@ const serverStartTime = moment(new Date()).format('LLLL');
 app.use(compression());
 
 app.listen(port, () => {
-  console.log(clc.green(`server started on port ${port} at ${serverStartTime}`));
+  winston.info(clc.green(`server started on port ${port} at ${serverStartTime}`));
 });
