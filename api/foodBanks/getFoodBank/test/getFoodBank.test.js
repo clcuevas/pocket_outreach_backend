@@ -14,18 +14,18 @@ describe('getFoodBank', () => {
     const urlStr = 'http://example.com/?long=value&lat=value2';
     const req = {
       query: {
-        lat: 'someLatitude',
-        long: 'someLongitude',
+        latitude: 'someLatitude',
+        longitude: 'someLongitude',
         time: '1491179493355'
       }
     };
     const res = {};
 
     getFoodBank(req, res, () => {
-      expect(req.query.lat).to.equal('someLatitude');
-      expect(req.query.long).to.equal('someLongitude');
+      expect(req.query.latitude).to.equal('someLatitude');
+      expect(req.query.longitude).to.equal('someLongitude');
       expect(req.query.time).to.equal('1491179493355');
       done();
-    })
-  })
+    });
+  });
 });
