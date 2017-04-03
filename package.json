@@ -12,13 +12,16 @@
     "winston": "^2.3.1"
   },
   "devDependencies": {
+    "@types/chai": "^3.4.35",
+    "chai": "^3.5.0",
     "eslint": "^3.19.0",
     "eslint-config-standard": "^7.1.0",
     "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-standard": "^2.1.1"
+    "eslint-plugin-standard": "^2.1.1",
+    "mocha": "^3.2.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "./node_modules/.bin/mocha api/**/*.test.js",
     "start": "node server.js",
     "lint": "./node_modules/.bin/eslint server.js && ./node_modules/.bin/eslint ./api/*.js"
   },
