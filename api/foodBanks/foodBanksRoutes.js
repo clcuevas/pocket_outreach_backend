@@ -5,9 +5,9 @@ const router = express.Router();
 
 const getFoodBank = require('./getFoodBank/getFoodBank');
 
-router.route('/food-banks')
-  .get(getFoodBank, (req, res) => {
-    res.json(JSON.parse(req.foodBanks.text));
-  });
+router.get('/food-banks/closest', getFoodBank, (req, res) => {
+  res.status(req.returnVal.status)
+  .send(req.returnVal.data);
+});
 
 module.exports = exports = router;

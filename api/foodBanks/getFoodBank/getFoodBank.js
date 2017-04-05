@@ -1,18 +1,39 @@
 'use strict';
 
 const request = require('superagent');
-
+// TODO add JSDOC comments
 function getFoodBank(req, res, next) {
+
+  if (!req.query.latitude || !req.query.longitude) {
+    req.returnVal = {
+      status: 400,
+      data: 'Invalid or missing query'
+    };
+    next();
+  }
+
   request
-  .get('https://data.seattle.gov/resource/3c4b-gdxv.json')
+  .get(`${process.env.SEATTLE_DATA_BASE_URL}/${process.env.SEATTLE_DATA_BASE_PATH}/${process.env.SEATTLE_FOOD_BANK_RESOURCE}`)
   .query({city_feature: 'Food Banks' })
   .set({'X-App-Token': process.env.SEATTLE_DATA_API_KEY, 'Accept': 'application/json'})
   .end((err, response) => {
     if (err) {
       next(err);
     }
-    req.foodBanks = response;
-    // TODO write method to extract 3 closest food banks
+    const foodBanks = JSON.parse(response.text);
+    let closestFoodBank;
+    for (const foodBank of foodBanks) {
+      foodBank.distance = getDistanceFromLatLon(req.query.latitude, req.query.longitude, foodBank.latitude, foodBank.longitude);
+      if (!closestFoodBank || closestFoodBank.distance > foodBank.distance) {
+        closestFoodBank = foodBank;
+      }
+    }
+
+    // TODO add Google location api to find driving distance
+    req.returnVal = {
+      status: 200,
+      data: closestFoodBank
+    };
     next();
   });
 }
