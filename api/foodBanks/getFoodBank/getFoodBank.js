@@ -7,7 +7,7 @@ function getFoodBank(req, res, next) {
   if (!req.query.latitude || !req.query.longitude) {
     req.returnVal = {
       status: 400,
-      data: 'Invalid or missing query'
+      data: { error: 'Invalid or missing query string' }
     };
     next();
   }
@@ -38,8 +38,6 @@ function getFoodBank(req, res, next) {
   });
 }
 
-module.exports = exports = getFoodBank;
-
 function getDistanceFromLatLon(lat1,lon1,lat2,lon2) {
   const R = 3958.7613; // Radius of the earth in miles
   const dLat = deg2rad(lat2-lat1);  // deg2rad below
@@ -56,3 +54,5 @@ function getDistanceFromLatLon(lat1,lon1,lat2,lon2) {
 function deg2rad(deg) {
   return deg * (Math.PI/180);
 }
+
+module.exports = exports = getFoodBank;

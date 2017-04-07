@@ -2,7 +2,6 @@
 
 const expect = require('chai').expect;
 const nock = require('nock');
-const sinon = require('sinon');
 
 const getFoodBank = require('../getFoodBank');
 const testFoodBankData = require('./foodBankTestData.json');
@@ -13,6 +12,7 @@ describe('getFoodBank', () => {
   before(() => {
     // prevent contamination of environment variables
     env = process.env;
+    // create test environment variables
     process.env.SEATTLE_FOOD_BANK_RESOURCE = 'fake-data.json';
     process.env.SEATTLE_DATA_BASE_PATH = 'resource';
     process.env.SEATTLE_DATA_BASE_URL = 'https://example.com';
@@ -37,9 +37,7 @@ describe('getFoodBank', () => {
         time: '2017-05-24T19:17:56.407Z'
       }
     };
-    const res = {
-      json: sinon.spy()
-    };
+    const res = {};
 
     getFoodBank(req, res, (err) => {
       expect(err).to.not.exist;
@@ -57,13 +55,11 @@ describe('getFoodBank', () => {
         time: '2017-05-24T19:17:56.407Z'
       }
     };
-    const res = {
-      json: sinon.spy()
-    };
+    const res = {};
 
     getFoodBank(req, res, (err) => {
       expect(err).to.not.exist;
-      expect(req.returnVal.data).to.equal('Invalid or missing query');
+      expect(req.returnVal.data.error).to.equal('Invalid or missing query string');
       expect(req.returnVal.status).to.equal(400);
       done();
     });
@@ -77,13 +73,11 @@ describe('getFoodBank', () => {
         time: '2017-05-24T19:17:56.407Z'
       }
     };
-    const res = {
-      json: sinon.spy()
-    };
+    const res = {};
 
     getFoodBank(req, res, (err) => {
       expect(err).to.not.exist;
-      expect(req.returnVal.data).to.equal('Invalid or missing query');
+      expect(req.returnVal.data.error).to.equal('Invalid or missing query string');
       expect(req.returnVal.status).to.equal(400);
       done();
     });
