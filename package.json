@@ -13,11 +13,6 @@
     "winston": "^2.3.1"
   },
   "devDependencies": {
-    "@types/chai": "^3.4.35",
-    "@types/cli-color": "^0.3.29",
-    "@types/nock": "^8.2.1",
-    "@types/sinon": "^2.1.2",
-    "@types/winston": "^2.3.0",
     "chai": "^3.5.0",
     "eslint": "^3.19.0",
     "eslint-config-standard": "^7.1.0",
@@ -25,11 +20,13 @@
     "eslint-plugin-standard": "^2.1.1",
     "mocha": "^3.2.0",
     "nock": "^9.0.11",
+    "nodemon": "^1.11.0",
     "sinon": "^2.1.0"
   },
   "scripts": {
     "test": "./node_modules/.bin/mocha api/**/*.test.js",
-    "start": "node server.js",
+    "start": "NODE_ENV=production node server.js",
+    "dev": "./node_modules/.bin/nodemon server.js",
     "debug": "node $NODE_DEBUG_OPTION server.js",
     "lint": "./node_modules/.bin/eslint server.js && ./node_modules/.bin/eslint ./api/*.js"
   },
