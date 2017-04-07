@@ -33,8 +33,7 @@ describe('getFoodBank', () => {
     const req = {
       query: {
         latitude: '47.673554',
-        longitude: '-122.387062',
-        time: '2017-05-24T19:17:56.407Z'
+        longitude: '-122.387062'
       }
     };
     const res = {};
@@ -51,8 +50,7 @@ describe('getFoodBank', () => {
   it('should return a 400 status and missing query message when no latitude is provided', (done) => {
     const req = {
       query: {
-        longitude: '-122.387062',
-        time: '2017-05-24T19:17:56.407Z'
+        longitude: '-122.387062'
       }
     };
     const res = {};
@@ -69,8 +67,7 @@ describe('getFoodBank', () => {
   it('should return a 400 status and missing query message when no longitude is provided', (done) => {
     const req = {
       query: {
-        latitude: '47.673554',
-        time: '2017-05-24T19:17:56.407Z'
+        latitude: '47.673554'
       }
     };
     const res = {};
