@@ -13,14 +13,14 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "latitude",
-            "description": "<p>Mandatory value. Submitted as a query string.</p>"
+            "description": "<p>Mandatory value. Submitted as a query string and formatted in signed degree format.</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "longitude",
-            "description": "<p>Mandatory value. Submitted as a query string.</p>"
+            "description": "<p>Mandatory value. Submitted as a query string and formatted in signed degree format.</p>"
           }
         ]
       }
