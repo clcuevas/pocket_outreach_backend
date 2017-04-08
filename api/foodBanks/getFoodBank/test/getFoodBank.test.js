@@ -36,9 +36,8 @@ describe('getFoodBank', () => {
         longitude: '-122.387062'
       }
     };
-    const res = {};
 
-    getFoodBank(req, res, (err) => {
+    getFoodBank(req, {}, (err) => {
       expect(err).to.not.exist;
       expect(req.returnVal.data.common_name).to.equal('Ballard Food Bank');
       expect(req.returnVal.status).to.equal(200);
@@ -53,9 +52,8 @@ describe('getFoodBank', () => {
         longitude: '-122.387062'
       }
     };
-    const res = {};
 
-    getFoodBank(req, res, (err) => {
+    getFoodBank(req, {}, (err) => {
       expect(err).to.not.exist;
       expect(req.returnVal.data.error).to.equal('Invalid or missing query string');
       expect(req.returnVal.status).to.equal(400);
@@ -70,9 +68,8 @@ describe('getFoodBank', () => {
         latitude: '47.673554'
       }
     };
-    const res = {};
 
-    getFoodBank(req, res, (err) => {
+    getFoodBank(req, {}, (err) => {
       expect(err).to.not.exist;
       expect(req.returnVal.data.error).to.equal('Invalid or missing query string');
       expect(req.returnVal.status).to.equal(400);
