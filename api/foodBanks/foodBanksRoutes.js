@@ -7,13 +7,13 @@ const getFoodBank = require('./getFoodBank/getFoodBank');
 
 /**
  * @apiName getFoodBank
- * @api {get} /food-banks/closest/?latitude=LATITUDE_VALUE&longitude=LONGITUDE_VALUE request closest food bank
+ * @api {get} /api/food-banks/closest/?latitude=LATITUDE_VALUE&longitude=LONGITUDE_VALUE request closest food bank
  * @apiGroup food banks
  * @apiVersion 1.0.0
  * @apiParam {String} latitude Mandatory. User's latitude to query by. Submitted as a query string and formatted in signed degree format.
  * @apiParam {String} longitude Mandatory. User's longitude to query by. Submitted as a query string and formatted in signed degree format.
  * @apiExample Example Usage:
- * http://example.com/food-banks/closest/?latitude=47.673554&longitude=-122.387062
+ * http://example.com/api/food-banks/closest/?latitude=47.673554&longitude=-122.387062
  * @apiSuccess {String} address food bank's address
  * @apiSuccess {String} city_feature the category title
  * @apiSuccess {String} common_name the name of the food bank
