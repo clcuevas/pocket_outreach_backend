@@ -6,7 +6,7 @@ const router = express.Router();
 const getFoodBank = require('./getFoodBank/getFoodBank');
 
 /**
- * @apiName getFoodBank
+ * @apiName get
  * @api {get} /api/food-banks/closest/?latitude=LATITUDE_VALUE&longitude=LONGITUDE_VALUE request closest food bank
  * @apiGroup food banks
  * @apiVersion 1.0.0
@@ -49,9 +49,6 @@ const getFoodBank = require('./getFoodBank/getFoodBank');
  *    }
  */
 
-router.get('/food-banks/closest', getFoodBank, (req, res) => {
-  res.status(req.returnVal.status);
-  res.json(req.returnVal.data);
-});
+router.get('/food-banks/closest', getFoodBank.get, getFoodBank.endpoint);
 
 module.exports = exports = router;
