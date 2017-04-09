@@ -14,6 +14,7 @@ const serverStartTime = moment(new Date()).format('LLLL');
 const logFilePath = path.join('log', 'pocket_outreach.log');
 winston.configure({
   transports: [
+    new (winston.transports.Console)(),
     new (winston.transports.File)({
       name: 'error-file',
       filename: logFilePath,
