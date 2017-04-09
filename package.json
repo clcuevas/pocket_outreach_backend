@@ -19,19 +19,19 @@
     "eslint-config-standard": "^7.1.0",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^2.1.1",
+    "jsdoc": "^3.4.3",
     "mocha": "^3.2.0",
     "nock": "^9.0.11",
     "nodemon": "^1.11.0",
-    "sinon": "^2.1.0",
-    "supertest": "^3.0.0"
+    "sinon": "^2.1.0"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha api/**/*.test.js",
+    "test": "./node_modules/.bin/mocha --recursive api/",
     "start": "NODE_ENV=production node server.js",
-    "dev": "./node_modules/.bin/nodemon server.js",
+    "dev": "NODE_ENV=development ./node_modules/.bin/nodemon server.js",
     "debug": "node $NODE_DEBUG_OPTION server.js",
     "lint": "./node_modules/.bin/eslint server.js && ./node_modules/.bin/eslint ./api/*.js",
-    "docs": "./node_modules/.bin/rimraf doc/ && ./node_modules/.bin/apidoc -i api/ -o doc/"
+    "docs": "./node_modules/.bin/rimraf doc/ out/ && ./node_modules/.bin/apidoc -i api/ -o doc/ && ./node_modules/.bin/jsdoc api/ -r README.md"
   },
   "repository": {
     "type": "git",
