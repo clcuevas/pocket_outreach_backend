@@ -1,6 +1,6 @@
 {
   "name": "Pocket_Outreach_REST_API",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "This is the REST API for Pocket Outreach, a web app designed to connect people in need with resources in their area. The areas we currently cover are: Seattle",
   "main": "server.js",
   "dependencies": {
