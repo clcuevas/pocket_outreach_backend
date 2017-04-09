@@ -1,10 +1,9 @@
 {
-  "name": "pocket_outreach_backend",
+  "name": "Pocket_Outreach_REST_API",
   "version": "0.0.1",
-  "description": "backend server for Pocket Outreach a simple web app designed to connect homeless people to resources near them in the Seattle area",
+  "description": "This is the REST API for Pocket Outreach, a web app designed to connect people in need with resources in their area. The areas we currently cover are: Seattle",
   "main": "server.js",
   "dependencies": {
-    "cli-color": "^1.2.0",
     "compression": "^1.6.2",
     "dotenv": "^4.0.0",
     "express": "^4.15.2",

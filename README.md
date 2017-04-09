@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/clcuevas/pocket_outreach_backend.svg?branch=master)](https://travis-ci.org/clcuevas/pocket_outreach_backend)
 
-#Pocket Outreach
+# Pocket Outreach
 
 This is the REST API for Pocket Outreach, a web app designed to connect people in need with resources in their area.
 
@@ -8,13 +8,13 @@ The areas we currently cover are:
 
  - Seattle
 
-##Documentation
+## Documentation
 
 Complete documentation for consuming the REST API is [available here](https://rawgit.com/clcuevas/pocket_outreach_backend/add-food-bank-routes/doc/index.html)
 
-Documentation on the methods used in this API are [available here](https://rawgit.com/clcuevas/pocket_outreach_backend/add-food-bank-routes/doc/index.html)
+Documentation on the methods used in this API are [available here](https://rawgit.com/clcuevas/pocket_outreach_backend/add-food-bank-routes/out/index.html)
  
- ##Prerequisites
+ ## Prerequisites
  
  You will need the following correctly installed to run the app
  
@@ -26,13 +26,13 @@ You will also need API keys from these resources:
 
 - [Socrata](https://dev.socrata.com/) dev account and API key
 
-##Installation
+## Installation
 
 - `git clone <this_repository_url>`
 - `cd pocket_outreach_backend`
 - `npm install`
 
-##Running
+## Running
 
 - production
   - `npm start`
