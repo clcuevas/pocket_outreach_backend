@@ -1,6 +1,6 @@
 define({ "api": [
   {
-    "name": "getFoodBank",
+    "name": "get",
     "type": "get",
     "url": "/api/food-banks/closest/?latitude=LATITUDE_VALUE&longitude=LONGITUDE_VALUE",
     "title": "request closest food bank",
