@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 
-const getFoodBank = require('./getFoodBank/getFoodBank');
+const getFoodBank = require('./lib/getFoodBank');
 
 /**
  * @apiName get

@@ -4,7 +4,7 @@ const expect = require('chai').expect;
 const nock = require('nock');
 const sinon = require('sinon');
 
-const getFoodBank = require('./getFoodBank');
+const getFoodBank = require('./../getFoodBank');
 const testFoodBankData = require('./foodBankTestData.json');
 
 describe('getFoodBank', () => {
