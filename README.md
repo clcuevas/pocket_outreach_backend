@@ -10,9 +10,9 @@ The areas we currently cover are:
 
 ## Documentation
 
-Complete documentation for consuming the REST API is [available here](https://rawgit.com/clcuevas/pocket_outreach_backend/add-food-bank-routes/doc/index.html)
+Complete documentation for consuming the REST API is [available here](https://cdn.rawgit.com/clcuevas/pocket_outreach_backend/master/doc/index.html)
 
-Documentation on the methods used in this API are [available here](https://rawgit.com/clcuevas/pocket_outreach_backend/add-food-bank-routes/out/index.html)
+Documentation on the methods used in this API are [available here](https://cdn.rawgit.com/clcuevas/pocket_outreach_backend/master/out/index.html)
  
  ## Prerequisites
  
