@@ -28,6 +28,7 @@ describe('getFoodBank', () => {
       })
       .get(`/${process.env.SEATTLE_DATA_BASE_PATH}/${process.env.SEATTLE_FOOD_BANK_RESOURCE}`)
       .query({city_feature: 'Food Banks' })
+      .times(3)
       .reply(200, testFoodBankData);
     });
 
@@ -40,7 +41,7 @@ describe('getFoodBank', () => {
       };
 
       getFoodBank.get(req, {}, (err) => {
-        expect(err).to.equal(undefined);
+        if (err) done(err);
         expect(req.returnVal.data.common_name).to.equal('Ballard Food Bank');
         expect(req.returnVal.status).to.equal(200);
         done();
@@ -56,7 +57,7 @@ describe('getFoodBank', () => {
       };
 
       getFoodBank.get(req, {}, (err) => {
-        expect(err).to.equal(undefined);
+        if (err) done(err);
         expect(req.returnVal.data.error).to.equal('Invalid or missing query string');
         expect(req.returnVal.status).to.equal(400);
         done();
@@ -72,7 +73,7 @@ describe('getFoodBank', () => {
       };
 
       getFoodBank.get(req, {}, (err) => {
-        expect(err).to.equal(undefined);
+        if (err) done(err);
         expect(req.returnVal.data.error).to.equal('Invalid or missing query string');
         expect(req.returnVal.status).to.equal(400);
         done();
@@ -83,6 +84,9 @@ describe('getFoodBank', () => {
 // restoring everything back
     after( () => {
       process.env = env;
+      if (!nock.isDone()) {
+        nock.cleanAll();
+      }
     });
   });
   describe('endpoint', () => {
@@ -109,6 +113,9 @@ describe('getFoodBank', () => {
         expect(res.status.calledWith(420), 'did not set status when returnVal.status was included').to.equal(true);
         expect(res.json.calledWith(req.returnVal.data), 'did not send data when returnVal.data was included ').to.equal(true);
         done();
+      })
+      .catch(err => {
+        done(err);
       });
     });
 
@@ -123,6 +130,9 @@ describe('getFoodBank', () => {
         expect(res.status.calledWith(400), 'did not send 400 when missing returnVal').to.equal(true);
         expect(res.json.calledWith({ 'error' : 'sorry we couldn\'t interpret you\'re request' }), 'did not send error message when missing returnVal').to.equal(true);
         done();
+      })
+      .catch(err => {
+        done(err);
       });
     });
   });

@@ -5,10 +5,10 @@
 
 const request = require('superagent');
 /**
- * lib to find closest food bank
+ * middleware to find closest food bank
  * @param req { Object } -  express request object
  * @param res { Object } - express response object
- * @param next { Function } - callback to call next lib
+ * @param next { Function } - callback to call next middleware
  */
 function getFoodBank(req, res, next) {
   // if the correct queries are not included, return bad request and error message

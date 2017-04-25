@@ -25,6 +25,7 @@ Documentation on the methods used in this API are [available here](https://rawgi
 You will also need API keys from these resources:
 
 - [Socrata](https://dev.socrata.com/) dev account and API key
+- [Google](https://developers.google.com/maps/documentation/geocoding/get-api-key)
 
 ## Installation
 
