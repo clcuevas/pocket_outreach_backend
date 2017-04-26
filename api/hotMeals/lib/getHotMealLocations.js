@@ -3,13 +3,14 @@
 const winston = require('winston');
 const request = require('superagent');
 const HotMealLocation = require('../models/HotMealLocation');
+const config = require('config');
 
-function getHotMealLocations(callback) {
+function getHotMealLocations(url, callback) {
   // HotMealLocation.collection.drop();
   // call the API and get the food banks
   request
-  .get(`${process.env.SEATTLE_DATA_BASE_URL}/${process.env.SEATTLE_DATA_BASE_PATH}/${process.env.SEATTLE_HOT_MEAL_RESOURCE}`)
-  .set({'X-App-Token': process.env.SEATTLE_DATA_API_KEY, 'Accept': 'application/json'})
+  .get(url)
+  .set({'X-App-Token': process.env.SOCRATA_DATA_API_KEY, 'Accept': 'application/json'})
   .end((err, response) => {
     if (err) {
       return winston.error(err);

@@ -10,8 +10,11 @@ const winston = require('winston');
 const mongoose = require('mongoose');
 mongoose.Promise = Promise;
 const clc = require('cli-color');
+const config = require('config');
 const errorHandler = require('./lib/errorHandler');
-const port = process.env.PORT;
+const configuration = config.get('configuration')
+const port = configuration.server.port;
+const mongoUri = `${configuration.database.host}/${configuration.database.name}`;
 const serverStartTime = moment(new Date()).format('LLLL');
 const logFilePath = path.join('log', 'pocket_outreach.log');
 const api = require('./api');
@@ -27,7 +30,7 @@ winston.configure({
   ]
 });
 
-mongoose.connect(process.env.MONGODB_URI)
+mongoose.connect(mongoUri)
 .then(
   () => {
     winston.info(clc.cyan('successfully connected to database'));

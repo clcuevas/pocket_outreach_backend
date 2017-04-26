@@ -3,6 +3,8 @@
 const querystring = require('querystring');
 const request = require('superagent');
 const winston = require('winston');
+const config = require('config');
+const googleLocationApi = config.get('resources.google.location_api');
 const HotMealLocation = require('../models/HotMealLocation');
 
 function addLatLng(err, hotMealLocation, callback) {
@@ -13,7 +15,7 @@ function addLatLng(err, hotMealLocation, callback) {
   });
 
   request
-  .get(`https://maps.googleapis.com/maps/api/geocode/json?${query}`)
+  .get(`${googleLocationApi}?${query}`)
   .end((err, response) => {
     if (err) return winston.error(err);
     const hotMealObject = JSON.parse(response.text);

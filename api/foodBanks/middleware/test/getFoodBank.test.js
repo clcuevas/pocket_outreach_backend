@@ -3,7 +3,8 @@
 const expect = require('chai').expect;
 const nock = require('nock');
 const sinon = require('sinon');
-
+const config = require('config');
+const seattleFoodBankApi = config.get('resources.socrata.food_banks.seattle');
 const getFoodBank = require('./../getFoodBank');
 const testFoodBankData = require('./foodBankTestData.json');
 
@@ -15,18 +16,15 @@ describe('getFoodBank', () => {
       // prevent contamination of environment variables
       env = process.env;
       // create test environment variables
-      process.env.SEATTLE_FOOD_BANK_RESOURCE = 'fake-data.json';
-      process.env.SEATTLE_DATA_BASE_PATH = 'resource';
-      process.env.SEATTLE_DATA_BASE_URL = 'https://example.com';
-      process.env.SEATTLE_DATA_API_KEY = 'fakeAPIKey';
+      process.env.SOCRATA_DATA_API_KEY = 'fakeAPIKey';
 
-      nock(process.env.SEATTLE_DATA_BASE_URL, {
+      nock(seattleFoodBankApi.toString(), {
         reqheaders: {
-          'X-App-Token': process.env.SEATTLE_DATA_API_KEY,
+          'X-App-Token': process.env.SOCRATA_DATA_API_KEY,
           'Accept': 'application/json'
         }
       })
-      .get(`/${process.env.SEATTLE_DATA_BASE_PATH}/${process.env.SEATTLE_FOOD_BANK_RESOURCE}`)
+      .get('')
       .query({city_feature: 'Food Banks' })
       .times(3)
       .reply(200, testFoodBankData);

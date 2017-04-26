@@ -7,6 +7,7 @@ mongoose.Promise = Promise;
 const expect = require('chai').expect;
 const nock = require('nock');
 const sinon = require('sinon');
+const config = require('config');
 const HotMealLocation = require('../../models/HotMealLocation');
 const socrataData = JSON.stringify(require('./hotMealTestData.json'));
 const getHotMealLocations = require('../getHotMealLocations');
@@ -16,22 +17,17 @@ describe('getHotMealLocations', function() {
   this.timeout(120000);
   // prevent contamination of environment variables
   let env;
-
+  const testUrl = 'http://example.com';
   before(function(done) {
     env = process.env;
-    // create test environment variables
-    process.env.SEATTLE_HOT_MEAL_RESOURCE = 'fake-data.json';
-    process.env.SEATTLE_DATA_BASE_PATH = 'resource';
-    process.env.SEATTLE_DATA_BASE_URL = 'https://example.com';
-    process.env.SEATTLE_DATA_API_KEY = 'fakeSocrataAPIKey';
-
-    nock(process.env.SEATTLE_DATA_BASE_URL, {
+    process.env.SOCRATA_DATA_API_KEY = 'fakeApiKey'
+    nock(testUrl, {
       reqheaders: {
-        'X-App-Token': process.env.SEATTLE_DATA_API_KEY,
+        'X-App-Token': process.env.SOCRATA_DATA_API_KEY,
         'Accept': 'application/json'
       }
     })
-    .get(`/${process.env.SEATTLE_DATA_BASE_PATH}/${process.env.SEATTLE_HOT_MEAL_RESOURCE}`)
+    .get('/')
     .reply(200, socrataData);
 
     mockgoose.prepareStorage().then(() => {
@@ -44,7 +40,7 @@ describe('getHotMealLocations', function() {
 
   it('should get hot meal locations and call the callback on each one to get the latitude and longitude', function(done) {
     const addLatLngSpy = sinon.spy();
-    getHotMealLocations(addLatLngSpy);
+    getHotMealLocations(testUrl, addLatLngSpy);
     setTimeout(() => {
       HotMealLocation.find((err, hotMealLocations) => {
         if (err) done(err);
@@ -65,7 +61,8 @@ describe('getHotMealLocations', function() {
     mockgoose.prepareStorage()
     .then(() => {
       mockgoose.helper.reset().then(() => {
-        mongoose.connection.close(() => {
+        mongoose.connection.close((err) => {
+          if (err) done(err);
           if (!nock.isDone()) {
             nock.cleanAll();
           }

@@ -4,6 +4,8 @@
  */
 
 const request = require('superagent');
+const config = require('config');
+const seattleFoodBankApi = config.get('resources.socrata.food_banks.seattle');
 /**
  * middleware to find closest food bank
  * @param req { Object } -  express request object
@@ -21,9 +23,9 @@ function getFoodBank(req, res, next) {
   }
   // call the API and get the food banks
   request
-  .get(`${process.env.SEATTLE_DATA_BASE_URL}/${process.env.SEATTLE_DATA_BASE_PATH}/${process.env.SEATTLE_FOOD_BANK_RESOURCE}`)
+  .get(seattleFoodBankApi.toString())
   .query({city_feature: 'Food Banks' })
-  .set({'X-App-Token': process.env.SEATTLE_DATA_API_KEY, 'Accept': 'application/json'})
+  .set({'X-App-Token': process.env.SOCRATA_DATA_API_KEY, 'Accept': 'application/json'})
   .end((err, response) => {
     if (err) {
       next(err);

@@ -6,6 +6,8 @@ const mockgoose = new Mockgoose(mongoose);
 mongoose.Promise = Promise;
 const expect = require('chai').expect;
 const nock = require('nock');
+const config = require('config');
+const googleLocationApi = config.get('resources.google.location_api');
 const HotMealLocation = require('../../models/HotMealLocation');
 const addLatLngFromGoogle = require('../addLatLngFromGoogle');
 const googleData = {
@@ -30,8 +32,8 @@ describe('addLatLngFromGoogle', function() {
     // create test environment variables
     process.env.GOOGLE_API_KEY = 'fakeGoogleAPIKey';
 
-    nock('https://maps.googleapis.com')
-    .get('/maps/api/geocode/json')
+    nock(googleLocationApi)
+    .get('')
     .query(true)
     .reply(200, googleData);
 
@@ -74,7 +76,8 @@ describe('addLatLngFromGoogle', function() {
     .then(() => {
 
       mockgoose.helper.reset().then(() => {
-        mongoose.connection.close(() => {
+        mongoose.connection.close((err) => {
+          if (err) done(err);
           if (!nock.isDone()) {
             nock.cleanAll();
           }
