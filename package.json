@@ -20,6 +20,8 @@
     "@types/cli-color": "^0.3.29",
     "@types/mocha": "^2.2.41",
     "@types/nock": "^8.2.1",
+    "@types/sinon": "^2.1.3",
+    "@types/winston": "^2.3.1",
     "apidoc": "^0.17.5",
     "chai": "^3.5.0",
     "eslint": "^3.19.0",
@@ -31,16 +33,17 @@
     "mockgoose": "^7.1.1",
     "nock": "^9.0.13",
     "nodemon": "^1.11.0",
+    "proxyquire": "^1.7.11",
     "sinon": "^2.1.0"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha --recursive api/**/*.test.js",
-    "start": "NODE_ENV=production mongod --dbpath=./data && node server.js",
-    "dev": "NODE_ENV=development ./node_modules/.bin/nodemon server.js",
-    "debug": "mongod --dbpath=./data && node $NODE_DEBUG_OPTION server.js",
-    "start-mongo": "mongod --dbpath=./data",
+    "test": "./node_modules/.bin/mocha --recursive api/**/*.test.js lib/**/*.test.js",
+    "start": "NODE_ENV=production node server.js | ./node_modules/.bin/mongod --dbpath=./data",
+    "dev": "NODE_ENV=development ./node_modules/.bin/nodemon server.js | ./node_modules/.bin/mongod --dbpath=./data",
+    "debug": "node $NODE_DEBUG_OPTION server.js",
+    "start-mongo": "./node_modules/.bin/mongod --dbpath=./data",
     "lint": "./node_modules/.bin/eslint server.js && ./node_modules/.bin/eslint ./api/*.js",
-    "docs": "./node_modules/.bin/rimraf doc/ out/ && ./node_modules/.bin/apidoc -i api/ -o doc/ && ./node_modules/.bin/jsdoc api/ -r README.md"
+    "docs": "./node_modules/.bin/rimraf doc/ out/ && ./node_modules/.bin/apidoc -i api/ -o doc/ && ./node_modules/.bin/jsdoc api/ lib/ -r README.md"
   },
   "repository": {
     "type": "git",
