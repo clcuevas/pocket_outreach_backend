@@ -9,3 +9,5 @@ script: npm test
 
 notifications:
   slack: omordn:TmqvxTNAAcwkwWuPIkwR5Lkl
+
+after_success: npm run coverage
