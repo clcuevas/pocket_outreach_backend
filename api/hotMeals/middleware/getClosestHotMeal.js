@@ -14,7 +14,7 @@ function getClosestHotMeal(req, res, next) {
   } else {
     HotMealLocation.find({}, (error, hotMealLocations) => {
       if (error) next(error);
-      req.body = {};
+      req.returnVal = {};
       const hotMeals = [];
       // loop over the hotMealLocations and add distance to locations with latitude and longitude and push them into the hotMeals array
       for (const hotMeal of hotMealLocations) {
@@ -28,12 +28,22 @@ function getClosestHotMeal(req, res, next) {
         return a.distance - b.distance;
       });
 
-      req.body.hot_meal_locations = hotMeals.slice(0, 3);
+      req.returnVal.data = hotMeals.slice(0, 3);
+      req.returnVal.status = 200;
       next();
     });
   }
 }
 
+function getClosestHotMealEndPoint(req, res) {
+  const status = req.returnVal && req.returnVal.status ? req.returnVal.status : 400;
+  const data = req.returnVal && req.returnVal.data ? req.returnVal.data : { 'error' : 'sorry we couldn\'t interpret you\'re request' };
+  res.status(status);
+  res.json(data);
+
+}
+
 module.exports = exports = {
-  get: getClosestHotMeal
+  get: getClosestHotMeal,
+  endpoint: getClosestHotMealEndPoint
 };

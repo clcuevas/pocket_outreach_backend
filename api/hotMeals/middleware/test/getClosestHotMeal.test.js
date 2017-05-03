@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const Mockgoose = require('mockgoose').Mockgoose;
 const mockgoose = new Mockgoose(mongoose);
 mongoose.Promise = Promise;
+const sinon = require('sinon');
 
 const getClosestHotMeal = require('../getClosestHotMeal');
 const HotMealLocation = require('../../models/HotMealLocation');
@@ -42,11 +43,12 @@ describe('getClosestHotMeal', () => {
       .then(hotMealLocations => {
         getClosestHotMeal.get(req, {}, (err) => {
           if (err) done(err);
-          expect(req.body.hot_meal_locations.length).to.equal(3);
-          expect(req.body.hot_meal_locations[0].location).to.equal('5710 22nd Ave. NW  Seattle');
-          expect(req.body.hot_meal_locations[0]._id).to.deep.equal(hotMealLocations[4]._id);
-          expect(req.body.hot_meal_locations[1]._id).to.deep.equal(hotMealLocations[3]._id);
-          expect(req.body.hot_meal_locations[2]._id).to.deep.equal(hotMealLocations[2]._id);
+          expect(req.returnVal.data.length).to.equal(3);
+          expect(req.returnVal.data[0].location).to.equal('5710 22nd Ave. NW  Seattle');
+          expect(req.returnVal.data[0]._id).to.deep.equal(hotMealLocations[4]._id);
+          expect(req.returnVal.data[1]._id).to.deep.equal(hotMealLocations[3]._id);
+          expect(req.returnVal.data[2]._id).to.deep.equal(hotMealLocations[2]._id);
+          expect(req.returnVal.status).to.equal(200);
           done();
         });
       });
@@ -97,5 +99,54 @@ describe('getClosestHotMeal', () => {
         });
       });
     });
+  });
+
+  describe('endpoint', () => {
+
+    it('should return 400 status and error message when returnVal is not included', (done) => {
+      const res = {
+        json: sinon.spy(),
+        status: sinon.spy()
+      };
+
+      Promise.resolve(getClosestHotMeal.endpoint({}, res))
+      .then(() => {
+        expect(res.status.calledWith(400), 'did not send 400 when missing returnVal').to.equal(true);
+        expect(res.json.calledWith({ 'error' : 'sorry we couldn\'t interpret you\'re request' }), 'did not send error message when missing returnVal').to.equal(true);
+        done();
+      })
+      .catch(err => {
+        done(err);
+      });
+    });
+
+    it('should send the returnVal status and returnVal data when included', (done) => {
+
+      const req = {
+        returnVal: {
+          status: 420,
+          data: {
+            state: 'of mind',
+            needs: 'tacos'
+          }
+        }
+      };
+
+      const res = {
+        json: sinon.spy(),
+        status: sinon.spy()
+      };
+
+      Promise.resolve(getClosestHotMeal.endpoint(req, res))
+      .then(() => {
+        expect(res.status.calledWith(420), 'did not set status when returnVal.status was included').to.equal(true);
+        expect(res.json.calledWith(req.returnVal.data), 'did not send data when returnVal.data was included ').to.equal(true);
+        done();
+      })
+      .catch(err => {
+        done(err);
+      });
+    });
+
   });
 });
