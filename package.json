@@ -39,12 +39,13 @@
     "sinon": "^2.1.0"
   },
   "scripts": {
-    "test": "nyc ./node_modules/.bin/mocha --recursive api/**/*.test.js lib/**/*.test.js",
+    "test": "nyc ./node_modules/.bin/mocha --recursive api/**/*.test.js lib/**/*.test.js && nyc report --reporter=text-lcov | coveralls",
     "start": "NODE_ENV=production node server.js | ./node_modules/.bin/mongod --dbpath=./data",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "dev": "NODE_ENV=development ./node_modules/.bin/nodemon server.js | ./node_modules/.bin/mongod --dbpath=./data",
     "debug": "node $NODE_DEBUG_OPTION server.js",
     "start-mongo": "./node_modules/.bin/mongod --dbpath=./data",
+    "start-server": "NODE_ENV=development ./node_modules/.bin/nodemon server.js",
     "lint": "./node_modules/.bin/eslint server.js && ./node_modules/.bin/eslint ./api/*.js",
     "docs": "./node_modules/.bin/rimraf doc/ out/ && ./node_modules/.bin/apidoc -i api/ -o doc/ && ./node_modules/.bin/jsdoc api/ lib/ -r README.md"
   },

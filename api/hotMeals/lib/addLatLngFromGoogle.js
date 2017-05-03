@@ -7,7 +7,7 @@ const config = require('config');
 const googleLocationApi = config.get('resources.google.location_api');
 const HotMealLocation = require('../models/HotMealLocation');
 
-function addLatLng(err, hotMealLocation, callback) {
+function addLatLng(err, hotMealLocation) {
   if (err) return winston.error(err);
   const query = querystring.stringify({
     address: hotMealLocation.location,
@@ -35,7 +35,7 @@ function addLatLng(err, hotMealLocation, callback) {
         { new: true },
         (err, hotMeal) => {
           if (err) return winston.error(err);
-          if (callback) callback(null, hotMeal);
+          else return hotMeal;
         });
     }
   });

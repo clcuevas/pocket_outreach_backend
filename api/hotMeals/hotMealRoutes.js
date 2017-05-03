@@ -1,3 +1,8 @@
 'use strict';
-// const getLatLong = require('./lib/addLatLngFromGoogle');
-// require('./lib/getHotMealLocations')(getLatLong);
+const router = require('express').Router();
+const config = require('config');
+const googleLocationApi = config.get('resources.socrata.hot_meals');
+const addLatLngFromGoogle = require('./lib/addLatLngFromGoogle');
+const getHotMealLocations = require('./lib/getHotMealLocations');
+
+

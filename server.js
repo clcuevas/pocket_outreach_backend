@@ -11,8 +11,8 @@ const mongoose = require('mongoose');
 mongoose.Promise = Promise;
 const clc = require('cli-color');
 const config = require('config');
-const errorHandler = require('./lib/errorHandler');
-const configuration = config.get('configuration')
+const errorHandler = require('./lib/errorHandler/errorHandler');
+const configuration = config.get('configuration');
 const port = configuration.server.port;
 const mongoUri = `${configuration.database.host}/${configuration.database.name}`;
 const serverStartTime = moment(new Date()).format('LLLL');
@@ -39,9 +39,6 @@ mongoose.connect(mongoUri)
     winston.error(err);
   }
 );
-// TODO these functions create the hotmeallocations, move them somewhere else
-// const getLatLong = require('./api/hotMeals/lib/addLatLngFromGoogle');
-// require('./api/hotMeals/lib/getHotMealLocations')(getLatLong);
 
 app.use(compression());
 app.use('/api', api);
