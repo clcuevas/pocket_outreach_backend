@@ -1,4 +1,5 @@
 'use strict';
+
 const router = require('express').Router();
 const config = require('config');
 const socrataHotMealsAPI = config.get('resources.socrata.hot_meals');
@@ -12,6 +13,6 @@ setInterval(() => {
   getHotMealLocations(socrataHotMealsAPI, addLatLngFromGoogle);
 }, 86400000);
 
-router.get('/hot-meal/closest',getClosestHotMeal.get, getClosestHotMeal.endpoint);
+router.get('/hot-meal/closest', getClosestHotMeal.get, getClosestHotMeal.endpoint);
 
 module.exports = exports = router;

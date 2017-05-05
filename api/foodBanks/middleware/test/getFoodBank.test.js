@@ -40,6 +40,7 @@ describe('getFoodBank', () => {
 
       getFoodBank.get(req, {}, (err) => {
         if (err) done(err);
+
         expect(req.returnVal.data.common_name).to.equal('Ballard Food Bank');
         expect(req.returnVal.status).to.equal(200);
         done();
@@ -56,6 +57,7 @@ describe('getFoodBank', () => {
 
       getFoodBank.get(req, {}, (err) => {
         if (err) done(err);
+
         expect(req.returnVal.data.error).to.equal('Invalid or missing query string');
         expect(req.returnVal.status).to.equal(400);
         done();
@@ -72,6 +74,7 @@ describe('getFoodBank', () => {
 
       getFoodBank.get(req, {}, (err) => {
         if (err) done(err);
+
         expect(req.returnVal.data.error).to.equal('Invalid or missing query string');
         expect(req.returnVal.status).to.equal(400);
         done();
@@ -112,9 +115,7 @@ describe('getFoodBank', () => {
         expect(res.json.calledWith(req.returnVal.data), 'did not send data when returnVal.data was included ').to.equal(true);
         done();
       })
-      .catch(err => {
-        done(err);
-      });
+      .catch(err => { done(err); });
     });
 
     it('should return 400 status and error message when returnVal is not included', (done) => {
@@ -129,9 +130,7 @@ describe('getFoodBank', () => {
         expect(res.json.calledWith({ 'error' : 'sorry we couldn\'t interpret you\'re request' }), 'did not send error message when missing returnVal').to.equal(true);
         done();
       })
-      .catch(err => {
-        done(err);
-      });
+      .catch(err => { done(err); });
     });
   });
 });

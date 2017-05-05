@@ -1,9 +1,11 @@
 'use strict';
 
 const mongoose = require('mongoose');
+
+mongoose.Promise = Promise;
+
 const Mockgoose = require('mockgoose').Mockgoose;
 const mockgoose = new Mockgoose(mongoose);
-mongoose.Promise = Promise;
 const expect = require('chai').expect;
 const nock = require('nock');
 const config = require('config');

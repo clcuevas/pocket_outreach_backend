@@ -8,7 +8,9 @@ const compression = require('compression');
 const moment = require('moment');
 const winston = require('winston');
 const mongoose = require('mongoose');
+
 mongoose.Promise = Promise;
+
 const clc = require('cli-color');
 const config = require('config');
 const errorHandler = require('./lib/errorHandler/errorHandler');

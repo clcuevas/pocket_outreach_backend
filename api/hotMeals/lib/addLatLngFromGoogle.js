@@ -9,6 +9,7 @@ const HotMealLocation = require('../models/HotMealLocation');
 
 function addLatLng(err, hotMealLocation) {
   if (err) return winston.error(err);
+
   const query = querystring.stringify({
     address: hotMealLocation.location,
     key: process.env.GOOGLE_API_KEY
@@ -18,11 +19,10 @@ function addLatLng(err, hotMealLocation) {
   .get(`${googleLocationApi}?${query}`)
   .end((err, response) => {
     if (err) return winston.error(err);
+
     const hotMealObject = JSON.parse(response.text);
     if (hotMealObject.results &&
-      hotMealObject.results[0] &&
-      hotMealObject.results[0].geometry &&
-      hotMealObject.results[0].geometry.location) {
+      hotMealObject.results[0]) {
 
       HotMealLocation.findByIdAndUpdate(
         hotMealLocation._id,
@@ -34,8 +34,7 @@ function addLatLng(err, hotMealLocation) {
         },
         { new: true },
         (err, hotMeal) => {
-          if (err) return winston.error(err);
-          else return hotMeal;
+          return err ? winston.error(err) : hotMeal;
         });
     }
   });

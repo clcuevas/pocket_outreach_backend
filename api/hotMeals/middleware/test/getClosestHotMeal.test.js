@@ -1,9 +1,11 @@
 'use strict';
 const expect = require('chai').expect;
 const mongoose = require('mongoose');
+
+mongoose.Promise = Promise;
+
 const Mockgoose = require('mockgoose').Mockgoose;
 const mockgoose = new Mockgoose(mongoose);
-mongoose.Promise = Promise;
 const sinon = require('sinon');
 
 const getClosestHotMeal = require('../getClosestHotMeal');
