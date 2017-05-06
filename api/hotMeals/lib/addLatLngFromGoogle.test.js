@@ -10,8 +10,8 @@ const expect = require('chai').expect;
 const nock = require('nock');
 const config = require('config');
 const googleLocationApi = config.get('resources.google.location_api');
-const HotMealLocation = require('../../models/HotMealLocation');
-const addLatLngFromGoogle = require('../addLatLngFromGoogle');
+const HotMealLocation = require('../models/HotMealLocation');
+const addLatLngFromGoogle = require('./addLatLngFromGoogle');
 const googleData = {
   results: [
     {

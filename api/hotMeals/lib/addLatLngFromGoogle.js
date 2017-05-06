@@ -22,7 +22,9 @@ function addLatLng(err, hotMealLocation) {
 
     const hotMealObject = JSON.parse(response.text);
     if (hotMealObject.results &&
-      hotMealObject.results[0]) {
+        hotMealObject.results[0] &&
+        hotMealObject.results[0].geometry &&
+        hotMealObject.results[0].geometry.location) {
 
       HotMealLocation.findByIdAndUpdate(
         hotMealLocation._id,

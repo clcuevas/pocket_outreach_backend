@@ -10,9 +10,9 @@ const expect = require('chai').expect;
 const nock = require('nock');
 const sinon = require('sinon');
 const config = require('config');
-const HotMealLocation = require('../../models/HotMealLocation');
-const socrataData = JSON.stringify(require('./hotMealTestData.json'));
-const getHotMealLocations = require('../getHotMealLocations');
+const HotMealLocation = require('../models/HotMealLocation');
+const socrataData = JSON.stringify(require('./getHotMealLocationsTestData.json'));
+const getHotMealLocations = require('./getHotMealLocations');
 
 describe('getHotMealLocations', function() {
   //extend timeout for mockgoose
