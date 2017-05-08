@@ -6,12 +6,21 @@ const app = express();
 const path = require('path');
 const compression = require('compression');
 const moment = require('moment');
-const clc = require('cli-color');
 const winston = require('winston');
-const errorHandler = require('./lib/errorHandler');
-const port = process.env.PORT;
+const mongoose = require('mongoose');
+
+mongoose.Promise = Promise;
+
+const clc = require('cli-color');
+const config = require('config');
+const errorHandler = require('./lib/errorHandler/errorHandler');
+const configuration = config.get('configuration');
+const port = configuration.server.port;
+const mongoUri = `${configuration.database.host}/${configuration.database.name}`;
 const serverStartTime = moment(new Date()).format('LLLL');
 const logFilePath = path.join('log', 'pocket_outreach.log');
+const api = require('./api');
+
 winston.configure({
   transports: [
     new (winston.transports.Console)(),
@@ -23,7 +32,15 @@ winston.configure({
   ]
 });
 
-const api = require('./api');
+mongoose.connect(mongoUri)
+.then(
+  () => {
+    winston.info(clc.cyan('successfully connected to database'));
+  },
+  (err) => {
+    winston.error(err);
+  }
+);
 
 app.use(compression());
 app.use('/api', api);

@@ -3,7 +3,8 @@
 const express = require('express');
 const router = express.Router();
 
-const getFoodBank = require('./lib/getFoodBank');
+const getFoodBank = require('./middleware/getFoodBank');
+const getFoodBankEndpoint = require('./middleware/getFoodBankEndpoint');
 
 /**
  * @apiName get
@@ -49,6 +50,6 @@ const getFoodBank = require('./lib/getFoodBank');
  *    }
  */
 
-router.get('/food-banks/closest', getFoodBank.get, getFoodBank.endpoint);
+router.get('/food-banks/closest', getFoodBank, getFoodBankEndpoint);
 
 module.exports = exports = router;

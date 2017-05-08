@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/clcuevas/pocket_outreach_backend.svg?branch=master)](https://travis-ci.org/clcuevas/pocket_outreach_backend)
+[![Coverage Status](https://coveralls.io/repos/github/clcuevas/pocket_outreach_backend/badge.svg)](https://coveralls.io/github/clcuevas/pocket_outreach_backend)
 
 # Pocket Outreach
 
@@ -24,7 +25,8 @@ Documentation on the methods used in this API are [available here](https://cdn.r
 
 You will also need API keys from these resources:
 
-- [Socrata](https://dev.socrata.com/) dev account and API key
+- [Socrata](https://dev.socrata.com/)
+- [Google](https://developers.google.com/maps/documentation/geocoding/get-api-key)
 
 ## Installation
 

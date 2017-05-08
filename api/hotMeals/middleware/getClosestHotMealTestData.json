@@ -1,0 +1,47 @@
+[
+  {
+    "day_time" : "Thursdays: 12:00 - 1:00 P.M.",
+    "location" : "31957 E. Commercial Street, Carnation",
+    "meal_served" : "Lunch",
+    "name_of_program" : "Hopelink/Sno-Valley",
+    "people_served" : "OPEN TO ALL",
+    "longitude" : "-121.9112907",
+    "latitude" : "47.6485754"
+  },
+  {
+    "day_time" : "Mondays: 4:30 - 5:15 P.M.",
+    "location" : "100 N street SE, Auburn",
+    "meal_served" : "Dinner",
+    "name_of_program" : "Auburn Community Supper",
+    "people_served" : "OPEN TO ALL",
+    "longitude" : "-122.2115518",
+    "latitude" : "47.3072847"
+  },
+  {
+    "day_time" : "Monday - Friday: 8:30 - 9:30 A.M.; Saturdays: 10:00 A.M.",
+    "location" : "210 Dexter Avenue, Seattle",
+    "meal_served" : "Breakfast",
+    "name_of_program" : "Mary's Place / Church of Mary Magdalene",
+    "people_served" : "OPEN TO WOMEN & CHILDREN ONLY",
+    "longitude" : "-122.3424088",
+    "latitude" : "47.6200214"
+  },
+  {
+    "day_time" : "Mondays: 12:30  - 1:00 P.M.",
+    "location" : "Woodland Park Pres. Church 225 N. 70th, Seattle",
+    "meal_served" : "Lunch",
+    "name_of_program" : "Monday Feeding Program",
+    "people_served" : "OPEN TO ALL",
+    "longitude" : "-122.355481",
+    "latitude" : "47.67938239999999"
+  },
+  {
+    "day_time" : "Fridays: 11:30 A.M. - 12:30 P.M.",
+    "location" : "5710 22nd Ave. NW  Seattle",
+    "meal_served" : "Lunch",
+    "name_of_program" : "Saint Luke's Episcopal Church",
+    "people_served" : "OPEN TO ALL",
+    "longitude" : "-122.384445",
+    "latitude" : "47.6704036"
+  }
+]

@@ -1,0 +1,24 @@
+{
+  "configuration" : {
+    "server": {
+      "port": 3000
+    },
+    "database": {
+      "host": "mongodb://localhost:27017",
+      "name": "pocket_outreach_dev"
+    }
+  },
+  "resources": {
+    "google": {
+      "location_api": "https://maps.googleapis.com/maps/api/geocode/json"
+    },
+    "socrata": {
+      "food_banks": {
+        "seattle": "http://data.seattle.gov/resource/3c4b-gdxv.json"
+      },
+      "hot_meals": {
+        "seattle": "http://data.seattle.gov/resource/47rs-c243.json"
+      }
+    }
+  }
+}
