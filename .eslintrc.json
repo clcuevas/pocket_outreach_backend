@@ -14,13 +14,19 @@
       "warn",
       { "allow": [ "warn", "error" ] }
     ],
-    "no-unused-vars": 1,
+    "no-unused-vars": [
+      "error", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }
+    ],
     "strict": 2,
-    "eol-last": [ "error", "always" ]
+    "eol-last": [ "error", "always" ],
+    "prefer-const": ["error", {
+      "destructuring": "any",
+      "ignoreReadBeforeAssign": false
+    }],
+    "no-multiple-empty-lines": [
+      2,
+      { "max": 2, "maxEOF": 1 }
+    ]
   },
-  "no-multiple-empty-lines": [
-    2,
-    { "max": 2, "maxEOF": 1 }
-  ],
   "plugins": [ "standard", "promise" ]
 }

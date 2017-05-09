@@ -9,8 +9,7 @@ const mockgoose = new Mockgoose(mongoose);
 const expect = require('chai').expect;
 const nock = require('nock');
 const sinon = require('sinon');
-const config = require('config');
-const HotMealLocation = require('../models/HotMealLocation');
+const HotMealLocation = require('../../models/HotMealLocation');
 const socrataData = JSON.stringify(require('./getHotMealLocationsTestData.json'));
 const getHotMealLocations = require('./getHotMealLocations');
 
@@ -22,7 +21,7 @@ describe('getHotMealLocations', function() {
   const testUrl = 'http://example.com';
   before(function(done) {
     env = process.env;
-    process.env.SOCRATA_DATA_API_KEY = 'fakeApiKey'
+    process.env.SOCRATA_DATA_API_KEY = 'fakeApiKey';
     nock(testUrl, {
       reqheaders: {
         'X-App-Token': process.env.SOCRATA_DATA_API_KEY,

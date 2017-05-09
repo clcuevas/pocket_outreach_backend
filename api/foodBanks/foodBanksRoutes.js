@@ -2,9 +2,19 @@
 
 const express = require('express');
 const router = express.Router();
+const config = require('config');
+const socrataBankssAPI = config.get('resources.socrata.food_banks');
 
-const getFoodBank = require('./middleware/getFoodBank');
-const getFoodBankEndpoint = require('./middleware/getFoodBankEndpoint');
+const errorHandler = require('../../lib/errorHandler/errorHandler');
+const getFoodBank = require('./middleware/getFoodBank/getFoodBank');
+const getFoodBankEndpoint = require('./middleware/getFoodBankEndpoint/getFoodBankEndpoint');
+const getFoodBanksFromSocrata = require('./lib/getFoodBanksFromSocrata/getFoodBanksFromSocrata');
+
+// get food banks from Socrata then update once every 24 hours
+getFoodBanksFromSocrata(socrataBankssAPI.seattle, errorHandler);
+setInterval(() => {
+  getFoodBanksFromSocrata(socrataBankssAPI.seattle, errorHandler);
+}, 86400000);
 
 /**
  * @apiName get

@@ -5,7 +5,7 @@ const request = require('superagent');
 const winston = require('winston');
 const config = require('config');
 const googleLocationApi = config.get('resources.google.location_api');
-const HotMealLocation = require('../models/HotMealLocation');
+const HotMealLocation = require('../../models/HotMealLocation');
 
 function addLatLng(err, hotMealLocation) {
   if (err) return winston.error(err);

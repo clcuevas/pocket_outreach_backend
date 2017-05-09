@@ -3,10 +3,10 @@
 const router = require('express').Router();
 const config = require('config');
 const socrataHotMealsAPI = config.get('resources.socrata.hot_meals');
-const addLatLngFromGoogle = require('./lib/addLatLngFromGoogle');
-const getHotMealLocations = require('./lib/getHotMealLocations');
-const getClosestHotMeal = require('./middleware/getClosestHotMeal');
-const getClosestHotMealEndpoint = require('./middleware/getClosestHotMealEndpoint');
+const addLatLngFromGoogle = require('./lib/addLatLngFromGoogle/addLatLngFromGoogle');
+const getHotMealLocations = require('./lib/getHotMealLocations/getHotMealLocations');
+const getClosestHotMeal = require('./middleware/getClosestHotMeal/getClosestHotMeal');
+const getClosestHotMealEndpoint = require('./middleware/getClosestHotMealEndpoint/getClosestHotMealEndpoint');
 
 // get closest hot meal locations from API then repeat once every 24 hours
 getHotMealLocations(socrataHotMealsAPI.seattle, addLatLngFromGoogle);

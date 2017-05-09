@@ -2,8 +2,7 @@
 
 const winston = require('winston');
 const request = require('superagent');
-const HotMealLocation = require('../models/HotMealLocation');
-const config = require('config');
+const HotMealLocation = require('../../models/HotMealLocation');
 
 function getHotMealLocations(url, callback) {
   // HotMealLocation.collection.drop();

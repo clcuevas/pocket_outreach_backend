@@ -13,7 +13,7 @@ mongoose.Promise = Promise;
 
 const clc = require('cli-color');
 const config = require('config');
-const errorHandler = require('./lib/errorHandler/errorHandler');
+const expressErrorHandler = require('./lib/expressErrorHandler/expressErrorHandler');
 const configuration = config.get('configuration');
 const port = configuration.server.port;
 const mongoUri = `${configuration.database.host}/${configuration.database.name}`;
@@ -51,4 +51,4 @@ app.listen(port, () => {
   }
 });
 
-app.use(errorHandler);
+app.use(expressErrorHandler);

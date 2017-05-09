@@ -1,16 +1,11 @@
 'use strict';
 
-/**
- * endpoint that sets status and sends response data to client
- * @param req { Object } -  express request object
- * @param res { Object } - express response object
- */
-
-function getFoodBankEndpoint(req, res) {
+function getClosestHotMealEndPoint(req, res) {
   const status = req.returnVal && req.returnVal.status ? req.returnVal.status : 400;
   const data = req.returnVal && req.returnVal.data ? req.returnVal.data : { 'error' : 'sorry we couldn\'t interpret you\'re request' };
   res.status(status);
   res.json(data);
+
 }
 
-module.exports = exports = getFoodBankEndpoint;
+module.exports = exports = getClosestHotMealEndPoint;

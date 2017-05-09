@@ -1,7 +1,7 @@
 'use strict';
 
-const HotMealLocation = require('../models/HotMealLocation');
-const getDistanceFromLatLng = require('../../../lib/getDistanceFromLatLng/getDistanceFromLatLng');
+const HotMealLocation = require('../../models/HotMealLocation');
+const getDistanceFromLatLng = require('../../../../lib/getDistanceFromLatLng/getDistanceFromLatLng');
 
 function getClosestHotMeal(req, res, next) {
   // if the correct queries are not included, return bad request and error message

@@ -8,7 +8,7 @@ const Mockgoose = require('mockgoose').Mockgoose;
 const mockgoose = new Mockgoose(mongoose);
 
 const getClosestHotMeal = require('./getClosestHotMeal');
-const HotMealLocation = require('../models/HotMealLocation');
+const HotMealLocation = require('../../models/HotMealLocation');
 const getClosestHotMealTestData = require('./getClosestHotMealTestData.json');
 
 describe('getClosestHotMeal', () => {
