@@ -21,14 +21,16 @@ function getFoodBanksFromSocrata(url, callback) {
     for (const foodBank of foodBanks) {
 
       if (foodBank.location) {
-        const newFoodBank = new FoodBank(foodBank);
 
-        newFoodBank.location.location_type = foodBank.location.type;
-
-        newFoodBank.save()
-        .catch(error => {
-          callback(error);
-        });
+        FoodBank.findOneAndUpdate(
+          { common_name: foodBank.common_name },
+          foodBank,
+          { returnNewDocument: true, upsert: true, new: true }
+        )
+        .then(newFoodBank => {
+          newFoodBank.location.location_type = foodBank.location.type;
+        })
+        .catch(error => callback(error) );
       }
     }
   });

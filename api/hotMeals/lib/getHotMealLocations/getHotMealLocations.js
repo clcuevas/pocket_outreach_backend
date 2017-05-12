@@ -5,7 +5,6 @@ const request = require('superagent');
 const HotMealLocation = require('../../models/HotMealLocation');
 
 function getHotMealLocations(url, callback) {
-  // HotMealLocation.collection.drop();
   // call the API and get the food banks
   request
   .get(url)
@@ -19,11 +18,14 @@ function getHotMealLocations(url, callback) {
     for (const hotMealLocation of hotMealLocations) {
 
       if (hotMealLocation.location) {
-        const hotMeal = new HotMealLocation(hotMealLocation);
-        hotMeal.save((err, savedHotMeal) => {
-          if (err) callback(err);
-          if (callback) callback(null, savedHotMeal);
-        });
+
+        HotMealLocation.findOneAndUpdate(
+          { name_of_program: hotMealLocation.name_of_program },
+          hotMealLocation,
+          { returnNewDocument: true, upsert: true, new: true }
+        )
+        .then(savedHotMeal => callback(null, savedHotMeal) )
+        .catch(error => callback(error) );
       }
     }
   });

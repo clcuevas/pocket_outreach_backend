@@ -41,7 +41,9 @@ describe('getHotMealLocations', function() {
 
   it('should get hot meal locations and call the callback on each one to get the latitude and longitude', function(done) {
     const addLatLngSpy = sinon.spy();
+
     getHotMealLocations(testUrl, addLatLngSpy);
+
     setTimeout(() => {
       HotMealLocation.find((err, hotMealLocations) => {
         if (err) done(err);
