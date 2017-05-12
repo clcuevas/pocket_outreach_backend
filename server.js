@@ -1,6 +1,6 @@
 'use strict';
 
-require('dotenv').config();
+require('dotenv-safe').config();
 const express = require('express');
 const app = express();
 const path = require('path');
