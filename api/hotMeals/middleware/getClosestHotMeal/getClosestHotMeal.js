@@ -1,8 +1,19 @@
 'use strict';
+/**
+ * @module getClosestHotMeals
+ */
 
 const HotMealLocation = require('../../models/HotMealLocation');
 const getDistanceFromLatLng = require('../../../../lib/getDistanceFromLatLng/getDistanceFromLatLng');
 
+//noinspection JSUnusedLocalSymbols
+/**
+ * Middleware to retrieve the closest hot meal location from the database
+ * @function getClosestHotMeal
+ * @param {Object} req - the express request object
+ * @param {Object} res - the express response object
+ * @param { Function } next - callback to call next middleware
+ */
 function getClosestHotMeal(req, res, next) {
   // if the correct queries are not included, return bad request and error message
   if (!req.query.latitude || !req.query.longitude) {

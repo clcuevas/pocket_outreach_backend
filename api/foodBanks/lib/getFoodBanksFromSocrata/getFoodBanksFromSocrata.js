@@ -6,6 +6,13 @@
 const request = require('superagent');
 const FoodBank = require('../../models/FoodBank');
 
+/**
+ * function to call Socrata API and get food banks
+ * @function getFoodBanksFromSocrata
+ * @param {string} url - the url that points to a Socrata API resource with food bank data in JSON format
+ * @param {Function} callback - the error handler callback
+ */
+
 function getFoodBanksFromSocrata(url, callback) {
 
   // call the API and get the food banks

@@ -1,9 +1,14 @@
 'use strict';
+/**
+ * @module getFoodBank
+ */
+
 
 /**
  * endpoint that sets status and sends response data to client
- * @param req { Object } -  express request object
- * @param res { Object } - express response object
+ * @function getFoodBankEndpoint
+ * @param { Object } req -  express request object
+ * @param { Object } res - express response object
  */
 
 function getFoodBankEndpoint(req, res) {

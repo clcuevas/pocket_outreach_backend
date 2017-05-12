@@ -80,6 +80,7 @@ describe('getFoodBank', () => {
     });
     const promises = [testFoodBank1.save(), testFoodBank2.save(), testFoodBank3.save()];
 
+    //noinspection JSUnusedLocalSymbols
     Promise.all(promises)
     // eslint-disable-next-line
     .then( foodBanks => {

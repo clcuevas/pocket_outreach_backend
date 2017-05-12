@@ -1,8 +1,17 @@
 'use strict';
+/**
+ * @module getClosestHotMeals
+ */
 
 const winston = require('winston');
 const request = require('superagent');
 const HotMealLocation = require('../../models/HotMealLocation');
+
+/**
+ * @function getHotMealLocations
+ * @param {String} url - the url of the Socrata API resource for hot meal locations
+ * @param {Function} callback - the callback to call on the hot meal location or the error if one is returned
+ */
 
 function getHotMealLocations(url, callback) {
   // call the API and get the food banks
@@ -11,7 +20,7 @@ function getHotMealLocations(url, callback) {
   .set({'X-App-Token': process.env.SOCRATA_DATA_API_KEY, 'Accept': 'application/json'})
   .end((err, response) => {
     if (err) return winston.error(err);
-    
+
     const hotMealLocations = JSON.parse(response.text);
 
     for (const hotMealLocation of hotMealLocations) {
