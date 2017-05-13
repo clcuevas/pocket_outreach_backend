@@ -9,6 +9,8 @@ const mockgoose = new Mockgoose(mongoose);
 const expect = require('chai').expect;
 const nock = require('nock');
 const config = require('config');
+const proxyquire = require('proxyquire');
+const sinon = require('sinon');
 const googleLocationApi = config.get('resources.google.location_api');
 const HotMealLocation = require('../../models/HotMealLocation');
 const addLatLngFromGoogle = require('./addLatLngFromGoogle');
@@ -36,6 +38,7 @@ describe('addLatLngFromGoogle', function() {
 
     nock(googleLocationApi)
     .get('')
+    .times(1)
     .query(true)
     .reply(200, googleData);
 
@@ -56,6 +59,7 @@ describe('addLatLngFromGoogle', function() {
       name_of_program:'Saint Luke\'s Episcopal Church',
       people_served:'OPEN TO ALL'
     };
+
     HotMealLocation.create(hotMealTestData, (err, hotMeal) => {
       if (err) done(err);
       addLatLngFromGoogle(null, hotMeal);
@@ -70,6 +74,101 @@ describe('addLatLngFromGoogle', function() {
       }, 1000);
     });
   });
+
+  before(function (done) {
+
+    nock(googleLocationApi)
+    .get('')
+    .times(1)
+    .query(true)
+    .replyWithError({ message: 'the sky is falling' });
+
+    done();
+
+  });
+
+  it('should call the errorHandler when the Google API returns an error', function (done) {
+
+    const hotMealTestData = {
+      day_time:'Fridays: 11:30 A.M. - 12:30 P.M.',
+      location:'5710 22nd Ave. NW  Seattle',
+      meal_served:'Lunch',
+      name_of_program:'Saint Luke\'s Episcopal Church',
+      people_served:'OPEN TO ALL'
+    };
+
+    function errorHandlerSpy(err) {
+      expect(err.message).to.deep.equal( 'the sky is falling' );
+      done();
+    }
+    // eslint-disable-next-line
+    let addLatLngFromGoogle = proxyquire('./addLatLngFromGoogle', { '../../../../lib/errorHandler/errorHandler': errorHandlerSpy});
+
+    HotMealLocation.create(hotMealTestData, (err, hotMeal) => {
+      if (err) done(err);
+
+      addLatLngFromGoogle(null, hotMeal);
+
+    });
+
+
+  });
+
+  it('should call the errorHandler when passed an error', function (done) {
+    const testError = new Error('no tacos');
+    const errorHandlerSpy = sinon.spy();
+    // eslint-disable-next-line
+    let addLatLngFromGoogle = proxyquire('./addLatLngFromGoogle', { '../../../../lib/errorHandler/errorHandler': errorHandlerSpy});
+
+    addLatLngFromGoogle(testError);
+    expect(errorHandlerSpy.calledWith(sinon.match(testError))).to.equal(true);
+    done();
+
+  });
+
+  before(function (done) {
+    nock(googleLocationApi)
+    .get('')
+    .times(1)
+    .query(true)
+    .reply(200, googleData);
+
+    done();
+
+  });
+
+  it('should call the callback with the error when mongoose returns an error', function (done) {
+    const testError = new Error('out of beer');
+    const HotMealLocationStub = {
+      findByIdAndUpdate: function () {
+        return Promise.reject( testError );
+      }
+    };
+    function errorHandlerSpy(err) {
+      expect(err).to.deep.equal( testError );
+      done();
+    }
+    // eslint-disable-next-line
+    let addLatLngFromGoogle = proxyquire('./addLatLngFromGoogle', { '../../../../lib/errorHandler/errorHandler': errorHandlerSpy, '../../models/HotMealLocation': HotMealLocationStub });
+
+    const hotMealTestData = {
+      day_time:'Fridays: 11:30 A.M. - 12:30 P.M.',
+      location:'5710 22nd Ave. NW  Seattle',
+      meal_served:'Lunch',
+      name_of_program:'Saint Luke\'s Episcopal Church',
+      people_served:'OPEN TO ALL'
+    };
+
+    HotMealLocation.create(hotMealTestData, (err, hotMeal) => {
+      if (err) done(err);
+
+      addLatLngFromGoogle(null, hotMeal);
+
+    });
+
+  });
+
+
 // restoring everything back
   after( (done) => {
     process.env = env;

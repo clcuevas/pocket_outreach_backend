@@ -5,21 +5,21 @@
 
 const querystring = require('querystring');
 const request = require('superagent');
-const winston = require('winston');
 const config = require('config');
 const googleLocationApi = config.get('resources.google.location_api');
 const HotMealLocation = require('../../models/HotMealLocation');
+const errorHandler = require('../../../../lib/errorHandler/errorHandler');
 
 /**
  * callback function to call the Google location API and add latitude and longitude to hotMealLocations
  * @function addLtLng
  * @param {Object} err - the error if it exists or null if no error
  * @param {Object} hotMealLocation - the MongoDB document of a hot meal location from the database
- * @returns {*} - if there's an error call winston.error on the error if no error, return the error
+ * @returns {*} - if there's an error call errorHandler on the error if no error, return the error
  */
 
 function addLatLng(err, hotMealLocation) {
-  if (err) return winston.error(err);
+  if (err) return errorHandler(err);
 
   const query = querystring.stringify({
     address: hotMealLocation.location,
@@ -29,7 +29,7 @@ function addLatLng(err, hotMealLocation) {
   request
   .get(`${googleLocationApi}?${query}`)
   .end((err, response) => {
-    if (err) return winston.error(err);
+    if (err) return errorHandler(err);
 
     const hotMealObject = JSON.parse(response.text);
     if (hotMealObject.results &&
@@ -45,10 +45,9 @@ function addLatLng(err, hotMealLocation) {
             longitude: hotMealObject.results[0].geometry.location.lng
           }
         },
-        { new: true },
-        (err, hotMeal) => {
-          return err ? winston.error(err) : hotMeal;
-        });
+        { new: true })
+      .then( hotMeal => { return hotMeal; })
+      .catch( err => { return errorHandler(err); });
     }
   });
 }
