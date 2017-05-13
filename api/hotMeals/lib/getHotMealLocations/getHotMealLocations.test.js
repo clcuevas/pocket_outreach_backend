@@ -9,6 +9,7 @@ const mockgoose = new Mockgoose(mongoose);
 const expect = require('chai').expect;
 const nock = require('nock');
 const sinon = require('sinon');
+const proxyquire = require('proxyquire');
 const HotMealLocation = require('../../models/HotMealLocation');
 const socrataData = JSON.stringify(require('./getHotMealLocationsTestData.json'));
 const getHotMealLocations = require('./getHotMealLocations');
@@ -19,9 +20,12 @@ describe('getHotMealLocations', function() {
   // prevent contamination of environment variables
   let env;
   const testUrl = 'http://example.com';
+
   before(function(done) {
     env = process.env;
     process.env.SOCRATA_DATA_API_KEY = 'fakeApiKey';
+
+    // nock successful request to Socrata
     nock(testUrl, {
       reqheaders: {
         'X-App-Token': process.env.SOCRATA_DATA_API_KEY,
@@ -29,6 +33,7 @@ describe('getHotMealLocations', function() {
       }
     })
     .get('/')
+    .times(1)
     .reply(200, socrataData);
 
     mockgoose.prepareStorage().then(() => {
@@ -55,6 +60,73 @@ describe('getHotMealLocations', function() {
         done();
       });
     }, 1000);
+  });
+
+  before(function(done) {
+
+    // nock error on request to Socrata
+    nock(testUrl, {
+      reqheaders: {
+        'X-App-Token': process.env.SOCRATA_DATA_API_KEY,
+        'Accept': 'application/json'
+      }
+    })
+    .get('/')
+    .times(1)
+    .replyWithError({'message': 'something awful happened'});
+
+    done();
+
+  });
+
+  it('should call the callback with the error when an error is returned from Socrata', function (done) {
+    const addLatLngSpy = sinon.spy();
+
+    getHotMealLocations(testUrl, addLatLngSpy);
+    setTimeout(() => {
+      expect(addLatLngSpy.called).to.equal(true);
+      expect(addLatLngSpy.calledWith(sinon.match({message: 'something awful happened'}))).to.equal(true);
+      done();
+    }, 1000);
+
+  });
+
+  before(function (done) {
+    // nock successful request to Socrata
+    nock(testUrl, {
+      reqheaders: {
+        'X-App-Token': process.env.SOCRATA_DATA_API_KEY,
+        'Accept': 'application/json'
+      }
+    })
+    .get('/')
+    .times(1)
+    .reply(200, socrataData);
+
+    done();
+
+  });
+
+  it('should call the callback with the error when mongoose returns an error', function (done) {
+    const addLatLngSpy = sinon.spy();
+
+    const HotMealLocationStub = {
+      findOneAndUpdate: function () {
+        return Promise.reject( new Error('out of beer') );
+      }
+    };
+    // eslint-disable-next-line
+    let getHotMealLocations = proxyquire('./getHotMealLocations', {'../../models/HotMealLocation': HotMealLocationStub});
+
+    getHotMealLocations(testUrl, addLatLngSpy);
+    setTimeout(() => {
+      expect(addLatLngSpy.called).to.equal(true);
+      expect(addLatLngSpy.calledWith(sinon.match({message: 'out of beer'}))).to.equal(true);
+
+      done();
+
+    }, 1000);
+
   });
 
   // restoring everything back

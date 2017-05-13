@@ -3,7 +3,6 @@
  * @module getClosestHotMeals
  */
 
-const winston = require('winston');
 const request = require('superagent');
 const HotMealLocation = require('../../models/HotMealLocation');
 
@@ -19,7 +18,7 @@ function getHotMealLocations(url, callback) {
   .get(url)
   .set({'X-App-Token': process.env.SOCRATA_DATA_API_KEY, 'Accept': 'application/json'})
   .end((err, response) => {
-    if (err) return winston.error(err);
+    if (err) return callback(err);
 
     const hotMealLocations = JSON.parse(response.text);
 
