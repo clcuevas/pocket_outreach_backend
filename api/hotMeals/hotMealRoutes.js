@@ -11,7 +11,7 @@ const getClosestHotMealEndpoint = require('./middleware/getClosestHotMealEndpoin
 // get closest hot meal locations from API then repeat once every 24 hours
 getHotMealLocations(socrataHotMealsAPI.seattle, addLatLngFromGoogle);
 setInterval(() => {
-  getHotMealLocations(socrataHotMealsAPI, addLatLngFromGoogle);
+  getHotMealLocations(socrataHotMealsAPI.seattle, addLatLngFromGoogle);
 }, 86400000);
 
 /**

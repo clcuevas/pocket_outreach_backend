@@ -111,8 +111,8 @@ describe('getHotMealLocations', function() {
     const addLatLngSpy = sinon.spy();
 
     const HotMealLocationStub = {
-      findOneAndUpdate: function () {
-        return Promise.reject( new Error('out of beer') );
+      findOneAndUpdate: (query, obj, options, callback) => {
+        return callback(new Error('out of beer'));
       }
     };
     // eslint-disable-next-line

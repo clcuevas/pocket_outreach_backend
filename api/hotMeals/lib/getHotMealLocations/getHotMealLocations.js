@@ -29,10 +29,12 @@ function getHotMealLocations(url, callback) {
         HotMealLocation.findOneAndUpdate(
           { name_of_program: hotMealLocation.name_of_program },
           hotMealLocation,
-          { returnNewDocument: true, upsert: true, new: true }
-        )
-        .then(savedHotMeal => callback(null, savedHotMeal) )
-        .catch(error => callback(error) );
+          { returnNewDocument: true, upsert: true, new: true },
+          (err, savedHotMeal) => {
+            if (err) return callback(err);
+            else callback(null, savedHotMeal);
+          }
+        );
       }
     }
   });

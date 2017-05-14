@@ -32,6 +32,7 @@ describe('getFoodBanksFromSocrata', function() {
       }
     })
     .get('/')
+    .times(2)
     .query({city_feature: 'Food Banks'})
     .reply(200, testSocrataData);
 
@@ -84,22 +85,21 @@ describe('getFoodBanksFromSocrata', function() {
 
   it('should call callback with an error if an error is returned from Mongo', function (done) {
     const testError = new Error('foul ball');
-    function FoodBankStub() {
-      return {
-        location: {},
-        save: callback => callback(testError)
-      };
-    }
+    const FoodBankStub = {
+      findOneAndUpdate: (query, obj, options, callback) => {
+        callback(testError);
+      }
+    };
 
     function errorHandlerStub(error) {
-      expect(error).to.deep.equal(testError);
+      expect(error).to.equal(testError);
+      done();
     }
     // eslint-disable-next-line
-    let getFoodBanksFromSocrata = proxyquire('./getFoodBanksFromSocrata', {'../models/FoodBank': FoodBankStub});
+    let getFoodBanksFromSocrata = proxyquire('./getFoodBanksFromSocrata', {'../../models/FoodBank': FoodBankStub});
 
     getFoodBanksFromSocrata(testUrl, errorHandlerStub);
 
-    done();
   });
 
   // restoring everything back

@@ -45,9 +45,11 @@ function addLatLng(err, hotMealLocation) {
             longitude: hotMealObject.results[0].geometry.location.lng
           }
         },
-        { new: true })
-      .then( hotMeal => { return hotMeal; })
-      .catch( err => { return errorHandler(err); });
+        { new: true },
+        (err, hotMeal) => {
+          if (err) return errorHandler(err);
+          return hotMeal;
+        });
     }
   });
 }

@@ -7,10 +7,10 @@ const request = require('superagent');
 const FoodBank = require('../../models/FoodBank');
 
 /**
- * function to call Socrata API and get food banks
  * @function getFoodBanksFromSocrata
  * @param {string} url - the url that points to a Socrata API resource with food bank data in JSON format
- * @param {Function} callback - the error handler callback
+ * @param {function} callback - the error handler callback
+ *
  */
 
 function getFoodBanksFromSocrata(url, callback) {
@@ -32,12 +32,12 @@ function getFoodBanksFromSocrata(url, callback) {
         FoodBank.findOneAndUpdate(
           { common_name: foodBank.common_name },
           foodBank,
-          { returnNewDocument: true, upsert: true, new: true }
-        )
-        .then(newFoodBank => {
-          newFoodBank.location.location_type = foodBank.location.type;
-        })
-        .catch(error => callback(error) );
+          { returnNewDocument: true, upsert: true, new: true },
+          (err, newFoodBank) => {
+            if (err) callback(err);
+            newFoodBank.location.location_type = foodBank.location.type;
+          }
+        );
       }
     }
   });

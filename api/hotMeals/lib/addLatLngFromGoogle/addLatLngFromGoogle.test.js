@@ -140,8 +140,8 @@ describe('addLatLngFromGoogle', function() {
   it('should call the callback with the error when mongoose returns an error', function (done) {
     const testError = new Error('out of beer');
     const HotMealLocationStub = {
-      findByIdAndUpdate: function () {
-        return Promise.reject( testError );
+      findByIdAndUpdate: function (query, obj, options, callback) {
+        callback(testError);
       }
     };
     function errorHandlerSpy(err) {

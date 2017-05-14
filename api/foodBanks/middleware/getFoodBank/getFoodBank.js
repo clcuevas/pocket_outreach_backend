@@ -26,24 +26,19 @@ function getFoodBank(req, res, next) {
     next();
   } else {
 
-    FoodBank.find()
-    .then(foodBanks => {
+    FoodBank.find((err, foodBanks) => {
+      if (err) next(err);
+
       for (const foodBank of foodBanks) {
         foodBank.distance = getDistanceFromLatLng(req.query.latitude, req.query.longitude, foodBank.latitude, foodBank.longitude);
         if (!closestFoodBank || closestFoodBank.distance > foodBank.distance) {
           closestFoodBank = foodBank;
         }
       }
-
-      return closestFoodBank;
-    })
-    .then(foundClosestFoodBank => {
-      // TODO add Google location api to find driving distance
-
       // assign the closest food bank and status to the returnVal object
       req.returnVal = {
         status: 200,
-        data: foundClosestFoodBank
+        data: closestFoodBank
       };
       next();
     });

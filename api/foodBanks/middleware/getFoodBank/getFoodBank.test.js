@@ -7,6 +7,7 @@ mongoose.Promise = Promise;
 
 const Mockgoose = require('mockgoose').Mockgoose;
 const mockgoose = new Mockgoose(mongoose);
+const proxyquire = require('proxyquire');
 const getFoodBank = require('./getFoodBank');
 const FoodBank = require('../../models/FoodBank');
 
@@ -127,6 +128,30 @@ describe('getFoodBank', () => {
     });
 
   });
+
+  it('should call next on the error when the database returns an error', function (done) {
+    const testError = new Error('the sky is falling');
+    const foodBankStub = {
+      find: callback => {
+        callback(testError);
+      }
+    };
+    const req = {
+      query: {
+        latitude: '47.6795200',
+        longitude: '-122.3875480'
+      }
+    };
+    // eslint-disable-next-line
+    let getClosestHotMeal = proxyquire('./getFoodBank', {'../../models/FoodBank': foodBankStub});
+
+    getClosestHotMeal(req, {}, (err) => {
+      expect(err).to.equal(testError);
+      done();
+    });
+
+  });
+
 
   after( (done) => {
 

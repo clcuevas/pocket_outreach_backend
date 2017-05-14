@@ -23,7 +23,7 @@ function getClosestHotMeal(req, res, next) {
     };
     next();
   } else {
-    HotMealLocation.find({}, (error, hotMealLocations) => {
+    HotMealLocation.find((error, hotMealLocations) => {
       if (error) next(error);
       req.returnVal = {};
       const hotMeals = [];
@@ -45,6 +45,5 @@ function getClosestHotMeal(req, res, next) {
     });
   }
 }
-
 
 module.exports = exports = getClosestHotMeal;

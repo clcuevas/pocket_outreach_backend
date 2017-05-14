@@ -6,6 +6,7 @@ mongoose.Promise = Promise;
 
 const Mockgoose = require('mockgoose').Mockgoose;
 const mockgoose = new Mockgoose(mongoose);
+const proxyquire = require('proxyquire');
 
 const getClosestHotMeal = require('./getClosestHotMeal');
 const HotMealLocation = require('../../models/HotMealLocation');
@@ -81,6 +82,29 @@ describe('getClosestHotMeal', () => {
       if (err) done(err);
       expect(req.returnVal.data.error).to.equal('Invalid or missing query string');
       expect(req.returnVal.status).to.equal(400);
+      done();
+    });
+
+  });
+
+  it('should call next on the error when the database returns an error', function (done) {
+    const testError = new Error('the sky is falling');
+    const hotMealStub = {
+      find: callback => {
+        callback(testError);
+      }
+    };
+    const req = {
+      query: {
+        latitude: '47.6795200',
+        longitude: '-122.3875480'
+      }
+    };
+    // eslint-disable-next-line
+    let getClosestHotMeal = proxyquire('./getClosestHotMeal', {'../../models/HotMealLocation': hotMealStub});
+
+    getClosestHotMeal(req, {}, (err) => {
+      expect(err).to.equal(testError);
       done();
     });
 
