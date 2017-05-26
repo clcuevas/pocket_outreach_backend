@@ -17,12 +17,12 @@ describe('getFoodBank', () => {
     this.timeout(120000);
 
     mockgoose.prepareStorage()
-    .then(() => {
-      mongoose.connect('mongodb://example.com/TestingDB', (err) => {
-        if (err) done(err);
-        done();
+      .then(() => {
+        mongoose.connect('mongodb://example.com/TestingDB', (err) => {
+          if (err) done(err);
+          done();
+        });
       });
-    });
   });
 
   it('should send a 200 status when a valid query string is included and return the closest food bank', (done) => {
@@ -79,20 +79,19 @@ describe('getFoodBank', () => {
         ]
       }
     });
-    const promises = [testFoodBank1.save(), testFoodBank2.save(), testFoodBank3.save()];
+    const promises = [ testFoodBank1.save(), testFoodBank2.save(), testFoodBank3.save() ];
 
-    //noinspection JSUnusedLocalSymbols
+    //noinspection JSUnusedLocalSymbols,Eslint
     Promise.all(promises)
-    // eslint-disable-next-line
-    .then( foodBanks => {
-      getFoodBank(req, {}, (err) => {
-        if (err) done(err);
+      .then( foodBanks => {
+        getFoodBank(req, {}, (err) => {
+          if (err) done(err);
 
-        expect(req.returnVal.data.common_name).to.equal('Closest Food Bank');
-        expect(req.returnVal.status).to.equal(200);
-        done();
+          expect(req.returnVal.data.common_name).to.equal('Closest Food Bank');
+          expect(req.returnVal.status).to.equal(200);
+          done();
+        });
       });
-    });
   });
 
   it('should return a 400 status and missing query message when no latitude is provided', (done) => {
@@ -156,16 +155,16 @@ describe('getFoodBank', () => {
   after( (done) => {
 
     mockgoose.prepareStorage()
-    .then(() => {
+      .then(() => {
 
-      mockgoose.helper.reset().then(() => {
-        mongoose.connection.close((err) => {
-          if (err) done(err);
+        mockgoose.helper.reset().then(() => {
+          mongoose.connection.close((err) => {
+            if (err) done(err);
 
-          done();
+            done();
+          });
         });
       });
-    });
   });
 
 });

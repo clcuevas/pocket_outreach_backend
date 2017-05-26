@@ -25,7 +25,6 @@ function getFoodBank(req, res, next) {
     };
     next();
   } else {
-
     FoodBank.find((err, foodBanks) => {
       if (err) next(err);
 

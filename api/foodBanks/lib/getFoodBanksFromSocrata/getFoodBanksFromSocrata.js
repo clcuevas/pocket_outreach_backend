@@ -17,19 +17,19 @@ function getFoodBanksFromSocrata(url, callback) {
 
   // call the API and get the food banks
   request
-  .get(url)
-  .query({city_feature: 'Food Banks' })
-  .set({'X-App-Token': process.env.SOCRATA_DATA_API_KEY, 'Accept': 'application/json'})
-  .end((err, response) => {
-    if (err) callback(err);
+    .get(url)
+    .query({ city_feature: 'Food Banks' })
+    .set({ 'X-App-Token': process.env.SOCRATA_DATA_API_KEY, 'Accept': 'application/json' })
+    .end((err, response) => {
+      if (err) callback(err);
 
-    const foodBanks = JSON.parse(response.text);
+      const foodBanks = JSON.parse(response.text);
 
-    for (const foodBank of foodBanks) {
+      for (const foodBank of foodBanks) {
 
-      if (foodBank.location) {
+        if (foodBank.location) {
 
-        FoodBank.findOneAndUpdate(
+          FoodBank.findOneAndUpdate(
           { common_name: foodBank.common_name },
           foodBank,
           { returnNewDocument: true, upsert: true, new: true },
@@ -38,9 +38,9 @@ function getFoodBanksFromSocrata(url, callback) {
             newFoodBank.location.location_type = foodBank.location.type;
           }
         );
+        }
       }
-    }
-  });
+    });
 }
 
 module.exports = exports = getFoodBanksFromSocrata;

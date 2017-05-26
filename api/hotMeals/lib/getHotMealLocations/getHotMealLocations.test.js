@@ -32,9 +32,9 @@ describe('getHotMealLocations', function() {
         'Accept': 'application/json'
       }
     })
-    .get('/')
-    .times(1)
-    .reply(200, socrataData);
+      .get('/')
+      .times(1)
+      .reply(200, socrataData);
 
     mockgoose.prepareStorage().then(() => {
       mongoose.connect('mongodb://example.com/TestingDB', (err) => {
@@ -71,9 +71,9 @@ describe('getHotMealLocations', function() {
         'Accept': 'application/json'
       }
     })
-    .get('/')
-    .times(1)
-    .replyWithError({'message': 'something awful happened'});
+      .get('/')
+      .times(1)
+      .replyWithError({ 'message': 'something awful happened' });
 
     done();
 
@@ -85,7 +85,7 @@ describe('getHotMealLocations', function() {
     getHotMealLocations(testUrl, addLatLngSpy);
     setTimeout(() => {
       expect(addLatLngSpy.called).to.equal(true);
-      expect(addLatLngSpy.calledWith(sinon.match({message: 'something awful happened'}))).to.equal(true);
+      expect(addLatLngSpy.calledWith(sinon.match({ message: 'something awful happened' }))).to.equal(true);
       done();
     }, 1000);
 
@@ -99,9 +99,9 @@ describe('getHotMealLocations', function() {
         'Accept': 'application/json'
       }
     })
-    .get('/')
-    .times(1)
-    .reply(200, socrataData);
+      .get('/')
+      .times(1)
+      .reply(200, socrataData);
 
     done();
 
@@ -121,7 +121,7 @@ describe('getHotMealLocations', function() {
     getHotMealLocations(testUrl, addLatLngSpy);
     setTimeout(() => {
       expect(addLatLngSpy.called).to.equal(true);
-      expect(addLatLngSpy.calledWith(sinon.match({message: 'out of beer'}))).to.equal(true);
+      expect(addLatLngSpy.calledWith(sinon.match({ message: 'out of beer' }))).to.equal(true);
 
       done();
 
@@ -134,16 +134,16 @@ describe('getHotMealLocations', function() {
     process.env = env;
 
     mockgoose.prepareStorage()
-    .then(() => {
-      mockgoose.helper.reset().then(() => {
-        mongoose.connection.close((err) => {
-          if (err) done(err);
-          if (!nock.isDone()) {
-            nock.cleanAll();
-          }
-          done();
+      .then(() => {
+        mockgoose.helper.reset().then(() => {
+          mongoose.connection.close((err) => {
+            if (err) done(err);
+            if (!nock.isDone()) {
+              nock.cleanAll();
+            }
+            done();
+          });
         });
       });
-    });
   });
 });

@@ -10,7 +10,7 @@ const foodBankSchema = mongoose.Schema({
   longitude: String,
   location: {
     location_type: String,
-    coordinates: [Number]
+    coordinates: [ Number ]
   },
   website: String
 });

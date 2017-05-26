@@ -31,10 +31,10 @@ describe('getFoodBanksFromSocrata', function() {
         'Accept': 'application/json'
       }
     })
-    .get('/')
-    .times(2)
-    .query({city_feature: 'Food Banks'})
-    .reply(200, testSocrataData);
+      .get('/')
+      .times(2)
+      .query({ city_feature: 'Food Banks' })
+      .reply(200, testSocrataData);
 
     process.env.SOCRATA_DATA_API_KEY = 'fakeApiKey';
     nock(testUrl2, {
@@ -43,14 +43,14 @@ describe('getFoodBanksFromSocrata', function() {
         'Accept': 'application/json'
       }
     })
-    .get('/')
-    .query({city_feature: 'Food Banks'})
-    .replyWithError(testError2);
+      .get('/')
+      .query({ city_feature: 'Food Banks' })
+      .replyWithError(testError2);
 
     mockgoose.prepareStorage().then(() => {
       mongoose.connect('mongodb://example.com/TestingDB', (err) => {
         if (err) done(err);
-        else done();
+        done();
       });
     });
   });
@@ -107,16 +107,16 @@ describe('getFoodBanksFromSocrata', function() {
     process.env = env;
 
     mockgoose.prepareStorage()
-    .then(() => {
-      mockgoose.helper.reset().then(() => {
-        mongoose.connection.close((err) => {
-          if (err) done(err);
-          if (!nock.isDone()) {
-            nock.cleanAll();
-          }
-          done();
+      .then(() => {
+        mockgoose.helper.reset().then(() => {
+          mongoose.connection.close((err) => {
+            if (err) done(err);
+            if (!nock.isDone()) {
+              nock.cleanAll();
+            }
+            done();
+          });
         });
       });
-    });
   });
 });

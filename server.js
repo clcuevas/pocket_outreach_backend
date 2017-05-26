@@ -33,7 +33,7 @@ winston.configure({
 });
 
 mongoose.connect(mongoUri)
-.then(
+  .then(
   () => {
     winston.info(clc.cyan('successfully connected to database'));
   },

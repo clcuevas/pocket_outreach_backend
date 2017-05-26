@@ -27,31 +27,31 @@ function addLatLng(err, hotMealLocation) {
   });
 
   request
-  .get(`${googleLocationApi}?${query}`)
-  .end((err, response) => {
-    if (err) return errorHandler(err);
+    .get(`${googleLocationApi}?${query}`)
+    .end((err, response) => {
+      if (err) return errorHandler(err);
 
-    const hotMealObject = JSON.parse(response.text);
-    if (hotMealObject.results &&
+      const hotMealObject = JSON.parse(response.text);
+      if (hotMealObject.results &&
       hotMealObject.results[0] &&
       hotMealObject.results[0].geometry &&
       hotMealObject.results[0].geometry.location) {
 
-      HotMealLocation.findByIdAndUpdate(
+        HotMealLocation.findByIdAndUpdate(
         hotMealLocation._id,
-        {
-          $set: {
-            latitude: hotMealObject.results[0].geometry.location.lat,
-            longitude: hotMealObject.results[0].geometry.location.lng
-          }
-        },
+          {
+            $set: {
+              latitude: hotMealObject.results[0].geometry.location.lat,
+              longitude: hotMealObject.results[0].geometry.location.lng
+            }
+          },
         { new: true },
         (err, hotMeal) => {
           if (err) return errorHandler(err);
           return hotMeal;
         });
-    }
-  });
+      }
+    });
 }
 
 module.exports = exports = addLatLng;

@@ -15,18 +15,18 @@ const HotMealLocation = require('../../models/HotMealLocation');
 function getHotMealLocations(url, callback) {
   // call the API and get the food banks
   request
-  .get(url)
-  .set({'X-App-Token': process.env.SOCRATA_DATA_API_KEY, 'Accept': 'application/json'})
-  .end((err, response) => {
-    if (err) return callback(err);
+    .get(url)
+    .set({ 'X-App-Token': process.env.SOCRATA_DATA_API_KEY, 'Accept': 'application/json' })
+    .end((err, response) => {
+      if (err) return callback(err);
 
-    const hotMealLocations = JSON.parse(response.text);
+      const hotMealLocations = JSON.parse(response.text);
 
-    for (const hotMealLocation of hotMealLocations) {
+      for (const hotMealLocation of hotMealLocations) {
 
-      if (hotMealLocation.location) {
+        if (hotMealLocation.location) {
 
-        HotMealLocation.findOneAndUpdate(
+          HotMealLocation.findOneAndUpdate(
           { name_of_program: hotMealLocation.name_of_program },
           hotMealLocation,
           { returnNewDocument: true, upsert: true, new: true },
@@ -35,9 +35,9 @@ function getHotMealLocations(url, callback) {
             else callback(null, savedHotMeal);
           }
         );
+        }
       }
-    }
-  });
+    });
 }
 
 module.exports = exports = getHotMealLocations;

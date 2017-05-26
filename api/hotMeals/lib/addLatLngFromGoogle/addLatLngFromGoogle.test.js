@@ -37,18 +37,18 @@ describe('addLatLngFromGoogle', function() {
     process.env.GOOGLE_API_KEY = 'fakeGoogleAPIKey';
 
     nock(googleLocationApi)
-    .get('')
-    .times(1)
-    .query(true)
-    .reply(200, googleData);
+      .get('')
+      .times(1)
+      .query(true)
+      .reply(200, googleData);
 
     mockgoose.prepareStorage()
-    .then(() => {
-      mongoose.connect('mongodb://example.com/TestingDB', (err) => {
-        if (err) done(err);
-        done();
+      .then(() => {
+        mongoose.connect('mongodb://example.com/TestingDB', (err) => {
+          if (err) done(err);
+          done();
+        });
       });
-    });
   });
 
   it('should add latitude and longitude to hotHealLocations', function (done) {
@@ -78,10 +78,10 @@ describe('addLatLngFromGoogle', function() {
   before(function (done) {
 
     nock(googleLocationApi)
-    .get('')
-    .times(1)
-    .query(true)
-    .replyWithError({ message: 'the sky is falling' });
+      .get('')
+      .times(1)
+      .query(true)
+      .replyWithError({ message: 'the sky is falling' });
 
     done();
 
@@ -128,10 +128,10 @@ describe('addLatLngFromGoogle', function() {
 
   before(function (done) {
     nock(googleLocationApi)
-    .get('')
-    .times(1)
-    .query(true)
-    .reply(200, googleData);
+      .get('')
+      .times(1)
+      .query(true)
+      .reply(200, googleData);
 
     done();
 
@@ -174,17 +174,17 @@ describe('addLatLngFromGoogle', function() {
     process.env = env;
 
     mockgoose.prepareStorage()
-    .then(() => {
+      .then(() => {
 
-      mockgoose.helper.reset().then(() => {
-        mongoose.connection.close((err) => {
-          if (err) done(err);
-          if (!nock.isDone()) {
-            nock.cleanAll();
-          }
-          done();
+        mockgoose.helper.reset().then(() => {
+          mongoose.connection.close((err) => {
+            if (err) done(err);
+            if (!nock.isDone()) {
+              nock.cleanAll();
+            }
+            done();
+          });
         });
       });
-    });
   });
 });
