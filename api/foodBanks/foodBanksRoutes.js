@@ -17,6 +17,7 @@ const FoodBank = require('./models/FoodBank');
 
 if (process.env.NODE_ENV === 'development' || 'dev') {
   FoodBank.find({}, (error, hotMealLocations) => {
+    if (error) errorHandler(error);
     if (!hotMealLocations.length)
       getFoodBanksFromSocrata(socrataFoodBanksAPI.seattle, errorHandler);
   });

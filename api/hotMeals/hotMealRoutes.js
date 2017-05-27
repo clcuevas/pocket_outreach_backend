@@ -8,6 +8,7 @@ const getHotMealLocations = require('./lib/getHotMealLocations/getHotMealLocatio
 const getClosestHotMeal = require('./middleware/getClosestHotMeal/getClosestHotMeal');
 const getClosestHotMealEndpoint = require('./middleware/getClosestHotMealEndpoint/getClosestHotMealEndpoint');
 const HotMealLocation = require('./models/HotMealLocation');
+const errorHandler = require('../../lib/errorHandler/errorHandler');
 
 /*get closest hot meal locations from API then repeat once every 24 hours if in production mode
 * if in dev mode, check if there are values in the collection and call the function only if the
@@ -15,6 +16,7 @@ const HotMealLocation = require('./models/HotMealLocation');
 
 if (process.env.NODE_ENV === 'development' || 'dev') {
   HotMealLocation.find({}, (error, hotMealLocations) => {
+    if (error) errorHandler(error);
     if (!hotMealLocations.length)
       getHotMealLocations(socrataHotMealsAPI.seattle, addLatLngFromGoogle);
   });
