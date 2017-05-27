@@ -7,12 +7,23 @@ const addLatLngFromGoogle = require('./lib/addLatLngFromGoogle/addLatLngFromGoog
 const getHotMealLocations = require('./lib/getHotMealLocations/getHotMealLocations');
 const getClosestHotMeal = require('./middleware/getClosestHotMeal/getClosestHotMeal');
 const getClosestHotMealEndpoint = require('./middleware/getClosestHotMealEndpoint/getClosestHotMealEndpoint');
+const HotMealLocation = require('./models/HotMealLocation');
 
-// get closest hot meal locations from API then repeat once every 24 hours
-getHotMealLocations(socrataHotMealsAPI.seattle, addLatLngFromGoogle);
-setInterval(() => {
+/*get closest hot meal locations from API then repeat once every 24 hours if in production mode
+* if in dev mode, check if there are values in the collection and call the function only if the
+* collection is empty*/
+
+if (process.env.NODE_ENV === 'development' || 'dev') {
+  HotMealLocation.find({}, (error, hotMealLocations) => {
+    if (!hotMealLocations.length)
+      getHotMealLocations(socrataHotMealsAPI.seattle, addLatLngFromGoogle);
+  });
+} else {
   getHotMealLocations(socrataHotMealsAPI.seattle, addLatLngFromGoogle);
-}, 86400000);
+  setInterval(() => {
+    getHotMealLocations(socrataHotMealsAPI.seattle, addLatLngFromGoogle);
+  }, 86400000);
+}
 
 /**
  * @apiName get
