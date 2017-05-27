@@ -2,9 +2,31 @@
 
 const express = require('express');
 const router = express.Router();
+const config = require('config');
+const socrataFoodBanksAPI = config.get('resources.socrata.food_banks');
 
-const getFoodBank = require('./middleware/getFoodBank');
-const getFoodBankEndpoint = require('./middleware/getFoodBankEndpoint');
+const errorHandler = require('../../lib/errorHandler/errorHandler');
+const getFoodBank = require('./middleware/getFoodBank/getFoodBank');
+const getFoodBankEndpoint = require('./middleware/getFoodBankEndpoint/getFoodBankEndpoint');
+const getFoodBanksFromSocrata = require('./lib/getFoodBanksFromSocrata/getFoodBanksFromSocrata');
+const FoodBank = require('./models/FoodBank');
+
+/*get closest food banks locations from API then repeat once every 24 hours if in production mode
+ * if in dev mode, check if there are values in the collection and call the function only if the
+ * collection is empty*/
+
+if (process.env.NODE_ENV === 'development' || 'dev') {
+  FoodBank.find({}, (error, hotMealLocations) => {
+    if (error) errorHandler(error);
+    if (!hotMealLocations.length)
+      getFoodBanksFromSocrata(socrataFoodBanksAPI.seattle, errorHandler);
+  });
+} else {
+  getFoodBanksFromSocrata(socrataFoodBanksAPI.seattle, errorHandler);
+  setInterval(() => {
+    getFoodBanksFromSocrata(socrataFoodBanksAPI.seattle, errorHandler);
+  }, 86400000);
+}
 
 /**
  * @apiName get
