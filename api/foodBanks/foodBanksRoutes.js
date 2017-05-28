@@ -8,7 +8,7 @@ const socrataFoodBanksAPI = config.get('resources.socrata.food_banks');
 const errorHandler = require('../../lib/errorHandler/errorHandler');
 const getFoodBank = require('./middleware/getFoodBank/getFoodBank');
 const getFoodBankEndpoint = require('./middleware/getFoodBankEndpoint/getFoodBankEndpoint');
-const getFoodBanksFromSocrata = require('./lib/getFoodBanksFromSocrata/getFoodBanksFromSocrata');
+const getSeattleFoodBanks = require('./lib/getSeattleFoodBanks/getSeattleFoodBanks');
 const FoodBank = require('./models/FoodBank');
 
 /*get closest food banks locations from API then repeat once every 24 hours if in production mode
@@ -19,12 +19,12 @@ if (process.env.NODE_ENV === 'development' || 'dev') {
   FoodBank.find({}, (error, hotMealLocations) => {
     if (error) errorHandler(error);
     if (!hotMealLocations.length)
-      getFoodBanksFromSocrata(socrataFoodBanksAPI.seattle, errorHandler);
+      getSeattleFoodBanks(socrataFoodBanksAPI.seattle, errorHandler);
   });
 } else {
-  getFoodBanksFromSocrata(socrataFoodBanksAPI.seattle, errorHandler);
+  getSeattleFoodBanks(socrataFoodBanksAPI.seattle, errorHandler);
   setInterval(() => {
-    getFoodBanksFromSocrata(socrataFoodBanksAPI.seattle, errorHandler);
+    getSeattleFoodBanks(socrataFoodBanksAPI.seattle, errorHandler);
   }, 86400000);
 }
 
@@ -36,7 +36,7 @@ if (process.env.NODE_ENV === 'development' || 'dev') {
  * @apiParam {String} latitude Mandatory. User's latitude to query by. Submitted as a query string and formatted in signed degree format.
  * @apiParam {String} longitude Mandatory. User's longitude to query by. Submitted as a query string and formatted in signed degree format.
  * @apiExample Example Usage:
- * http://example.com/api/food-banks/closest/?latitude=47.673554&longitude=-122.387062
+ * https://data.pocketoutreach.org/api/food-banks/closest/?latitude=47.673554&longitude=-122.387062
  * @apiSuccess {String} address food bank's address
  * @apiSuccess {String} city_feature the category title
  * @apiSuccess {String} common_name the name of the food bank
