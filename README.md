@@ -1,5 +1,4 @@
 [![Build Status](https://travis-ci.org/clcuevas/pocket_outreach_backend.svg?branch=master)](https://travis-ci.org/clcuevas/pocket_outreach_backend)
-[![Coverage Status](https://coveralls.io/repos/github/clcuevas/pocket_outreach_backend/badge.svg)](https://coveralls.io/github/clcuevas/pocket_outreach_backend)
 
 # Pocket Outreach
 
