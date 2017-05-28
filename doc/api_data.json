@@ -29,7 +29,7 @@
     "examples": [
       {
         "title": "Example Usage:",
-        "content": "http://example.com/api/food-banks/closest/?latitude=47.673554&longitude=-122.387062",
+        "content": "https://data.pocketoutreach.org/api/food-banks/closest/?latitude=47.673554&longitude=-122.387062",
         "type": "json"
       }
     ],
@@ -169,7 +169,7 @@
     "examples": [
       {
         "title": "Example Usage:",
-        "content": "http://example.com/api/hot-meal/closest?latitude=47.673554&longitude=-122.387062",
+        "content": "https://data.pocketoutreach.org/api/hot-meal/closest?latitude=47.673554&longitude=-122.387062",
         "type": "json"
       }
     ],

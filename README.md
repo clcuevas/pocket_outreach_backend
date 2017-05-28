@@ -11,9 +11,9 @@ The areas we currently cover are:
 
 ## Documentation
 
-Complete documentation for consuming the REST API is [available here](https://cdn.rawgit.com/clcuevas/pocket_outreach_backend/master/doc/index.html)
+Complete documentation for consuming the REST API is [available here](https://rawgit.com/clcuevas/pocket_outreach_backend/master/doc/index.html#api-food_banks-get)
 
-Documentation on the methods used in this API are [available here](https://cdn.rawgit.com/clcuevas/pocket_outreach_backend/master/out/index.html)
+Documentation on the methods used in this API are [available here](https://rawgit.com/clcuevas/pocket_outreach_backend/master/out/index.html)
  
  ## Prerequisites
  
@@ -35,6 +35,8 @@ You will also need API keys from these resources:
 - `npm install`
 
 ## Running
+
+The API port and other configuration settings are set in the config files located in `config/default.json` and `config/production.json`. The default port is `3000`, but you can set it to what suits your needs. We use the `config` npm module for storing configuration settings. Check out the [config module on npm ](https://www.npmjs.com/package/config) for documentation on setting up your configuration.
 
 - production
   - `npm start`
