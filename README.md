@@ -25,7 +25,7 @@ For developers interested in contributing, documentation on the methods used in 
  You will need the following correctly installed to run the app
  
 - [Node.js 6.10.0+](https://nodejs.org/en/download/) (with npm)
-  - it will probably work in earlier versions of node, but I haven't tested it
+  - I've only run it with Node 6.10.0+, but it's tested from Node 4+ with Travis CI, so if you need to use an earlier version it will probably work
 - [MongoDB 3.4+](https://docs.mongodb.com/manual/installation/) 
   - it will probably work in earlier versions, but I haven't tested it
 - [Git](https://git-scm.com/)
