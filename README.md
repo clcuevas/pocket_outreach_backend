@@ -8,12 +8,17 @@ This is the REST API for Pocket Outreach, a web app designed to connect people i
 The areas we currently cover are:
 
  - Seattle
+ - Central East NC 
 
 ## Documentation
 
+The API endpoints are available from the root [data.pocketoutreach.org](https://data.pocketoutreach.org/)
+
 Complete documentation for consuming the REST API is [available here](https://rawgit.com/clcuevas/pocket_outreach_backend/master/doc/index.html#api-food_banks-get)
 
-Documentation on the methods used in this API are [available here](https://rawgit.com/clcuevas/pocket_outreach_backend/master/out/index.html)
+We can use all the help we can get, so if you're interested in contributing, please send a pull request. 
+
+For developers interested in contributing, documentation on the methods used in this API are [available here](https://rawgit.com/clcuevas/pocket_outreach_backend/master/out/index.html)
  
  ## Prerequisites
  
