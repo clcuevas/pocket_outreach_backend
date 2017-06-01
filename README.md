@@ -25,7 +25,9 @@ For developers interested in contributing, documentation on the methods used in 
  You will need the following correctly installed to run the app
  
 - [Node.js 6.10.0+](https://nodejs.org/en/download/) (with npm)
-  - _it will probably work in earlier versions of node, but I haven't tested it_
+  - it will probably work in earlier versions of node, but I haven't tested it
+- [MongoDB 3.4+](https://docs.mongodb.com/manual/installation/) 
+  - it will probably work in earlier versions, but I haven't tested it
 - [Git](https://git-scm.com/)
 
 You will also need API keys from these resources:
