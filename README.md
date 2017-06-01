@@ -12,7 +12,7 @@ The areas we currently cover are:
 
 ## Documentation
 
-The API endpoints are available from the root [data.pocketoutreach.org](https://data.pocketoutreach.org/)
+The API endpoints are available from [data.pocketoutreach.org](https://data.pocketoutreach.org/)
 
 Complete documentation for consuming the REST API is [available here](https://rawgit.com/clcuevas/pocket_outreach_backend/master/doc/index.html#api-food_banks-get)
 
