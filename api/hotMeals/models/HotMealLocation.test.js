@@ -36,32 +36,6 @@ describe('HotMealLocation Model', function() {
     });
   });
 
-  it('should require latitude', function (done) {
-    const testHotMealLocation = new HotMealLocation({
-      name_of_program: 'test food bank',
-      longitude: 2
-    });
-
-    testHotMealLocation.save((err) => {
-      expect(err).to.exist;
-      expect(err.message).to.equal('HotMealLocation validation failed: latitude: Path `latitude` is required.');
-      done();
-    });
-  });
-
-  it('should require longitude', function (done) {
-    const testHotMealLocation = new HotMealLocation({
-      name_of_program: 'test food bank',
-      latitude: 2
-    });
-
-    testHotMealLocation.save((err) => {
-      expect(err).to.exist;
-      expect(err.message).to.equal('HotMealLocation validation failed: longitude: Path `longitude` is required.');
-      done();
-    });
-  });
-
   // restoring everything back
   after( (done) => {
 

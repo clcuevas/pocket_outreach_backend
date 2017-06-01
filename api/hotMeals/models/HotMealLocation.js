@@ -10,14 +10,8 @@ const hotMealLocationSchema = new mongoose.Schema({
     required: true
   },
   people_served: String,
-  latitude: {
-    type: String,
-    required: true
-  },
-  longitude: {
-    type: String,
-    required: true
-  }
+  latitude: String,
+  longitude: String
 });
 
 module.exports = exports = mongoose.model('HotMealLocation', hotMealLocationSchema);
