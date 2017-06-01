@@ -9,6 +9,7 @@ const errorHandler = require('../../lib/errorHandler/errorHandler');
 const getFoodBank = require('./middleware/getFoodBank/getFoodBank');
 const getFoodBankEndpoint = require('./middleware/getFoodBankEndpoint/getFoodBankEndpoint');
 const getSeattleFoodBanks = require('./lib/getSeattleFoodBanks/getSeattleFoodBanks');
+const getCentralEastNCFoodBank = require('./lib/getCentralEastNCFoodBanks/getCentralEastNCFoodBanks');
 const FoodBank = require('./models/FoodBank');
 
 /*get closest food banks locations from API then repeat once every 24 hours if in production mode
@@ -18,13 +19,16 @@ const FoodBank = require('./models/FoodBank');
 if (process.env.NODE_ENV === 'development' || 'dev') {
   FoodBank.find({}, (error, hotMealLocations) => {
     if (error) errorHandler(error);
-    if (!hotMealLocations.length)
+    if (!hotMealLocations.length) {
       getSeattleFoodBanks(socrataFoodBanksAPI.seattle, errorHandler);
+      getCentralEastNCFoodBank(socrataFoodBanksAPI.central_east_north_carolina, errorHandler);
+    }
   });
 } else {
   getSeattleFoodBanks(socrataFoodBanksAPI.seattle, errorHandler);
   setInterval(() => {
     getSeattleFoodBanks(socrataFoodBanksAPI.seattle, errorHandler);
+    getCentralEastNCFoodBank(socrataFoodBanksAPI.central_east_north_carolina, errorHandler);
   }, 86400000);
 }
 
