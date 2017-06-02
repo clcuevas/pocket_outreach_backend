@@ -17,15 +17,16 @@ const FoodBank = require('./models/FoodBank');
  * collection is empty*/
 
 if (process.env.NODE_ENV === 'development' || 'dev') {
-  FoodBank.find({}, (error, hotMealLocations) => {
+  FoodBank.find({}, (error, foodBanks) => {
     if (error) errorHandler(error);
-    if (!hotMealLocations.length) {
+    if (!foodBanks.length) {
       getSeattleFoodBanks(socrataFoodBanksAPI.seattle, errorHandler);
       getCentralEastNCFoodBank(socrataFoodBanksAPI.central_east_north_carolina, errorHandler);
     }
   });
 } else {
   getSeattleFoodBanks(socrataFoodBanksAPI.seattle, errorHandler);
+  getCentralEastNCFoodBank(socrataFoodBanksAPI.central_east_north_carolina, errorHandler);
   setInterval(() => {
     getSeattleFoodBanks(socrataFoodBanksAPI.seattle, errorHandler);
     getCentralEastNCFoodBank(socrataFoodBanksAPI.central_east_north_carolina, errorHandler);
