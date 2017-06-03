@@ -7,13 +7,13 @@ const request = require('superagent');
 const FoodBank = require('../../models/FoodBank');
 
 /**
- * @function getFoodBanksFromSocrata
+ * @function getSeattleFoodBanks
  * @param {string} url - the url that points to a Socrata API resource with food bank data in JSON format
  * @param {function} callback - the error handler callback
  *
  */
 
-function getFoodBanksFromSocrata(url, callback) {
+function getSeattleFoodBanks(url, callback) {
 
   // call the API and get the food banks
   request
@@ -43,4 +43,4 @@ function getFoodBanksFromSocrata(url, callback) {
     });
 }
 
-module.exports = exports = getFoodBanksFromSocrata;
+module.exports = exports = getSeattleFoodBanks;

@@ -12,9 +12,9 @@ const sinon = require('sinon');
 const proxyquire = require('proxyquire');
 
 const FoodBank = require('../../models/FoodBank');
-const testSocrataData = JSON.stringify(require('./getFoodBankFromSocrataTestData.json'));
+const testSocrataData = JSON.stringify(require('./getSeattleFoodBanksTestData.json'));
 
-describe('getFoodBanksFromSocrata', function() {
+describe('getSeattleFoodBanks', function() {
   //extend timeout for mockgoose
   this.timeout(120000);
   // prevent contamination of environment variables
@@ -56,10 +56,10 @@ describe('getFoodBanksFromSocrata', function() {
   });
 
   it('should get food banks from Socrata and add them to the database', function(done) {
-    const getFoodBanksFromSocrata = require('./getFoodBanksFromSocrata');
+    const getSeattleFoodBanks = require('./getSeattleFoodBanks');
     const errorHandler = sinon.spy();
 
-    getFoodBanksFromSocrata(testUrl, errorHandler);
+    getSeattleFoodBanks(testUrl, errorHandler);
     setTimeout(() => {
       FoodBank.find((err, foundFoodBanks) => {
         if (err) done(err);
@@ -72,14 +72,14 @@ describe('getFoodBanksFromSocrata', function() {
   });
 
   it('should call callback with an error if an error is returned from supergoose', function (done) {
-    const getFoodBanksFromSocrata = require('./getFoodBanksFromSocrata');
+    const getSeattleFoodBanks = require('./getSeattleFoodBanks');
 
     function errorHandlerStub(error) {
       expect(error).to.deep.equal(testError2);
       done();
     }
 
-    getFoodBanksFromSocrata(testUrl2, errorHandlerStub);
+    getSeattleFoodBanks(testUrl2, errorHandlerStub);
 
   });
 
@@ -96,9 +96,9 @@ describe('getFoodBanksFromSocrata', function() {
       done();
     }
     // eslint-disable-next-line
-    let getFoodBanksFromSocrata = proxyquire('./getFoodBanksFromSocrata', {'../../models/FoodBank': FoodBankStub});
+    let getSeattleFoodBanks = proxyquire('./getSeattleFoodBanks', {'../../models/FoodBank': FoodBankStub});
 
-    getFoodBanksFromSocrata(testUrl, errorHandlerStub);
+    getSeattleFoodBanks(testUrl, errorHandlerStub);
 
   });
 

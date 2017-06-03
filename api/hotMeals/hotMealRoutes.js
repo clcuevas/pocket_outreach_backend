@@ -35,7 +35,7 @@ if (process.env.NODE_ENV === 'development' || 'dev') {
  * @apiParam {String} latitude Mandatory. User's latitude to query by. Submitted as a query string and formatted in signed degree format.
  * @apiParam {String} longitude Mandatory. User's longitude to query by. Submitted as a query string and formatted in signed degree format.
  * @apiExample Example Usage:
- * http://example.com/api/hot-meal/closest?latitude=47.673554&longitude=-122.387062
+ * https://data.pocketoutreach.org/api/hot-meal/closest?latitude=47.673554&longitude=-122.387062
  * @apiSuccess {Object[]} hotMealLocations  Array of hot meal location objects
  * @apiSuccess {String} hotMealLocations._id  The MongoDB id of the hot meal location
  * @apiSuccess {String} hotMealLocations.name_of_program Name of hot meal program

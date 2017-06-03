@@ -1,4 +1,22 @@
-[{":@computed_region_w4v5_s5k6":"14591","_num":"409","_pageurl":"http://content.foodbankcenc.org/about/zipcounty.asp","_resultnumber":"409","_source":"nc-food-pantry-full","city":"Bunnlevel","hours":"Hours: Every Wed 10:00-12:00pm","location_1":{"type":"Point","coordinates":[-78.85302632599968,35.31116387700047]},"location_1_location":"PO Box 222","location_1_state":"NC","name":"Smart Choice Outreach Incorporation","phone":"Phone: 910-893-6765","type":"Type: FOODPANTRY","zipcode":"28323"}
+[{
+  ":@computed_region_w4v5_s5k6":"14591",
+  "_num":"409",
+  "_pageurl":"http://content.foodbankcenc.org/about/zipcounty.asp",
+  "_resultnumber":"409",
+  "_source":"nc-food-pantry-full",
+  "city":"Bunnlevel",
+  "hours":"Hours: Every Wed 10:00-12:00pm",
+  "location_1":{
+    "type":"Point",
+    "coordinates":[-78.85302632599968,35.31116387700047]
+  },
+  "location_1_location":"PO Box 222",
+  "location_1_state":"NC",
+  "name":"Smart Choice Outreach Incorporation",
+  "phone":"Phone: 910-893-6765",
+  "type":"Type: FOODPANTRY",
+  "zipcode":"28323"
+}
 ,{":@computed_region_w4v5_s5k6":"28422","_num":"41","_pageurl":"http://content.foodbankcenc.org/about/zipcounty.asp","_resultnumber":"41","_source":"nc-food-pantry-full","city":"Durham","hours":"Hours: Every Wednesday (6-7:30pm) and Every Thursday (6-7:30pm) By Appointment","location_1":{"type":"Point","coordinates":[-78.83321744599965,35.96461359900047]},"location_1_location":"Lisa Richmond","location_1_state":"NC","name":"Birchwood Learning Center","phone":"Phone: 919-598-9885","type":"Type: FOODPANTRY","zipcode":"27703"}
 ,{":@computed_region_w4v5_s5k6":"27749","_num":"101","_pageurl":"http://content.foodbankcenc.org/about/zipcounty.asp","_resultnumber":"101","_source":"nc-food-pantry-full","city":"Henderson","hours":"Hours: 2nd and 4th Saturdays 9am-10am","location_1":{"type":"Point","coordinates":[-78.40084877399966,36.33135685900049]},"location_1_location":"511 N. Chestnut Street","location_1_state":"NC","name":"Cotton Memorial Presb. Church","phone":"Phone: 252-492-3478 church","type":"Type: FOODPANTRY","zipcode":"27536"}
 ,{":@computed_region_w4v5_s5k6":"15369","_num":"504","_pageurl":"http://content.foodbankcenc.org/about/zipcounty.asp","_resultnumber":"504","_source":"nc-food-pantry-full","city":"Warsaw","hours":"Hours: Monday-Friday 9am-4pm","location_1":{"type":"Point","coordinates":[-78.09442376999965,34.99858430600045]},"location_1_location":"209 East College Street","location_1_state":"NC","name":"Warsaw Baptist Church","phone":"Phone: 910-293-4236","type":"Type: FOODPANTRY","zipcode":"28398"}
