@@ -11,9 +11,11 @@ const mongoose = require('mongoose');
 mongoose.Promise = Promise;
 const clc = require('cli-color');
 const config = require('config');
+const cors = require('cors');
 const expressErrorHandler = require('./lib/expressErrorHandler/expressErrorHandler');
 const configuration = config.get('configuration');
 const port = configuration.server.port;
+const corsOptions = configuration.corsOptions;
 const mongoUri = `${configuration.database.host}/${configuration.database.name}`;
 const serverStartTime = moment(new Date()).format('LLLL');
 const logFilePath = path.join('log', 'pocket_outreach.log');
@@ -40,6 +42,7 @@ mongoose.connect(mongoUri)
   }
 );
 
+app.use(cors(corsOptions));
 app.use(express.static(path.join(__dirname, 'doc')));
 app.use(express.static(path.join(__dirname, 'out')));
 app.use(compression());
