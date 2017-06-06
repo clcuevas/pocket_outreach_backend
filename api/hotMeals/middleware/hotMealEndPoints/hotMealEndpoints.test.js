@@ -3,9 +3,9 @@
 const expect = require('chai').expect;
 const sinon = require('sinon');
 
-const getClosestHotMealEndpoint = require('./getClosestHotMealEndpoint');
+const hotMealEndpoints = require('./hotMealEndPoints');
 
-describe('getClosestHotMealEndpoint', () => {
+describe('hotMealEndpoints', () => {
 
   it('should return 400 status and error message when returnVal is not included', (done) => {
     const res = {
@@ -13,7 +13,7 @@ describe('getClosestHotMealEndpoint', () => {
       status: sinon.spy()
     };
 
-    Promise.resolve(getClosestHotMealEndpoint({}, res))
+    Promise.resolve(hotMealEndpoints({}, res))
       .then(() => {
         expect(res.status.calledWith(400), 'did not send 400 when missing returnVal').to.equal(true);
         expect(res.json.calledWith({ 'error' : 'sorry we couldn\'t interpret you\'re request' }), 'did not send error message when missing returnVal').to.equal(true);
@@ -27,10 +27,10 @@ describe('getClosestHotMealEndpoint', () => {
     const req = {
       returnVal: {
         status: 420,
-        data: {
+        data: [ {
           state: 'of mind',
           needs: 'tacos'
-        }
+        } ]
       }
     };
 
@@ -39,10 +39,10 @@ describe('getClosestHotMealEndpoint', () => {
       status: sinon.spy()
     };
 
-    Promise.resolve(getClosestHotMealEndpoint(req, res))
+    Promise.resolve(hotMealEndpoints(req, res))
       .then(() => {
         expect(res.status.calledWith(420), 'did not set status when returnVal.status was included').to.equal(true);
-        expect(res.json.calledWith(req.returnVal.data), 'did not send data when returnVal.data was included ').to.equal(true);
+        expect(res.json.calledWith(req.returnVal), 'did not send data when returnVal.data was included ').to.equal(true);
         done();
       })
       .catch(err => done(err) );

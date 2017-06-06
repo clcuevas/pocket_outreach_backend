@@ -1,6 +1,6 @@
 'use strict';
 /**
- * @module getClosestHotMeals
+ * @module getHotMeals
  */
 
 const request = require('superagent');

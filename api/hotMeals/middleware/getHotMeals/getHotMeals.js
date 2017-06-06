@@ -1,6 +1,6 @@
 'use strict';
 /**
- * @module getClosestHotMeals
+ * @module getHotMeals
  */
 
 const HotMealLocation = require('../../models/HotMealLocation');
@@ -9,20 +9,23 @@ const getDistanceFromLatLng = require('../../../../lib/getDistanceFromLatLng/get
 //noinspection JSUnusedLocalSymbols
 /**
  * Middleware to retrieve the closest hot meal location from the database
- * @function getClosestHotMeal
+ * @function getHotMeals
  * @param {Object} req - the express request object
  * @param {Object} res - the express response object
  * @param { Function } next - callback to call next middleware
  */
 function getClosestHotMeal(req, res, next) {
   // if the correct queries are not included, return bad request and error message
-  if (!req.query.latitude || !req.query.longitude) {
+  if ((req.query && !req.query.latitude && req.query.longitude) || (req.query && req.query.latitude && !req.query.longitude)) {
     req.returnVal = {
-      status: 400,
-      data: { error: 'Invalid or missing query string' }
+      errors: [ {
+        error: 'must provide both latitude and longitude in query',
+        title: 'query error',
+        status: 400
+      } ]
     };
     next();
-  } else {
+  } else if (req.query && req.query.latitude && req.query.longitude) {
     HotMealLocation.find((error, hotMealLocations) => {
       if (error) next(error);
       req.returnVal = {};
@@ -39,7 +42,23 @@ function getClosestHotMeal(req, res, next) {
         return a.distance - b.distance;
       });
 
-      req.returnVal.data = hotMeals.slice(0, 3);
+      const limit = parseInt(req.query.limit, 10);
+      req.returnVal.data = !isNaN(limit) ? hotMeals.slice(0, req.query.limit) : hotMeals;
+      req.returnVal.status = 200;
+      next();
+    });
+  }  else {
+    HotMealLocation.find((error, hotMealLocations) => {
+      if (error) next(error);
+      req.returnVal = {};
+      const hotMeals = [];
+
+      for (const hotMealLocation of hotMealLocations) {
+        hotMeals.push(hotMealLocation);
+      }
+
+      const limit = req.query ? parseInt(req.query.limit, 10) : NaN;
+      req.returnVal.data = !isNaN(limit) ? hotMeals.slice(0, req.query.limit) : hotMeals;
       req.returnVal.status = 200;
       next();
     });

@@ -7,6 +7,6 @@ const foodBankRoutes = require('./foodBanks/foodBanksRoutes');
 const hotMealRoutes = require('./hotMeals/hotMealRoutes');
 
 router.use('/', foodBankRoutes);
-router.use('/', hotMealRoutes);
+router.use('/hot-meal-locations', hotMealRoutes);
 
 module.exports = exports = router;

@@ -7,10 +7,10 @@ This is the REST API for Pocket Outreach, a web app designed to connect people i
 
 The API endpoints and complete documentation are available from [data.pocketoutreach.org](https://data.pocketoutreach.org/)
 
-Currently there are endpoints that will:
+Currently there are endpoints for locating:
 
-- Get the closest food bank
-- Get the closest location serving free hot meals
+- Food Banks
+- Free Hot Meals
 
 The areas we currently cover are:
 
@@ -51,7 +51,7 @@ The API port, CORS, and other configuration settings are set in the config files
 
 ## Running the App
 
-To run the app locally you will need to start both the server and MongoDB. You can run the server in production or development and MongoDB can be run from the local copy or your global installation. To start the app in development mode with the local mongod module, open a terminal window and run `npm run mongod`, then open a second terminal window and run `npm run dev`. If you didn't edit the config settings, the app should be running with endpoints available from `http://localhost:3000` and CORS enabled for `http://localhost:4200` 
+To run the app locally you will need to start both the server and MongoDB. You can run the server in production or development and MongoDB can be run from the local copy or your global installation. To start the app in development mode with the local mongod module, open a terminal window and run `npm run mongod`, then open a second terminal window and run `npm run dev`. The order is important; no matter how you start the app, MongoDB must be started before the server, because the server will get errors when it tries to connect to the database. If you didn't edit the config settings, the app should be running with endpoints available from `http://localhost:3000` and CORS enabled for `http://localhost:4200` 
 
 The rest of the commands are listed below.
 

@@ -5,8 +5,8 @@ const config = require('config');
 const socrataHotMealsAPI = config.get('resources.socrata.hot_meals');
 const addLatLngFromGoogle = require('./lib/addLatLngFromGoogle/addLatLngFromGoogle');
 const getHotMealLocations = require('./lib/getHotMealLocations/getHotMealLocations');
-const getClosestHotMeal = require('./middleware/getClosestHotMeal/getClosestHotMeal');
-const getClosestHotMealEndpoint = require('./middleware/getClosestHotMealEndpoint/getClosestHotMealEndpoint');
+const getHotMeals = require('./middleware/getHotMeals/getHotMeals');
+const getClosestHotMealEndpoint = require('./middleware/hotMealEndPoints/hotMealEndPoints');
 const HotMealLocation = require('./models/HotMealLocation');
 const errorHandler = require('../../lib/errorHandler/errorHandler');
 
@@ -26,7 +26,7 @@ if (process.env.NODE_ENV === 'development' || 'dev') {
     getHotMealLocations(socrataHotMealsAPI.seattle, addLatLngFromGoogle);
   }, 86400000);
 }
-
+// TODO update api doc for /api/hot-meal-locaions
 /**
  * @apiName get
  * @api {get} /api/hot-meal/closest?latitude=LATITUDE_VALUE&longitude=LONGITUDE_VALUE request closest hot meal locations
@@ -88,6 +88,6 @@ if (process.env.NODE_ENV === 'development' || 'dev') {
  *    }
  */
 
-router.get('/hot-meal/closest', getClosestHotMeal, getClosestHotMealEndpoint);
+router.get('/', getHotMeals, getClosestHotMealEndpoint);
 
 module.exports = exports = router;
