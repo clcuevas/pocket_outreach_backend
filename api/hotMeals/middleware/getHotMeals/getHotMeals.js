@@ -36,13 +36,13 @@ function getHotMeals(req, res, next) {
           id: hotMeal._id,
           type: 'HotMealLocation',
           attributes: {
-            name_of_program: hotMeal.name_of_program ? hotMeal.name_of_program : '',
-            day_time: hotMeal.day_time ? hotMeal.day_time : '',
-            location: hotMeal.location ? hotMeal.location : '',
-            meal_served: hotMeal.meal_served ? hotMeal.meal_served : '',
-            people_served: hotMeal.people_served ? hotMeal.people_served : '',
-            longitude: hotMeal.longitude ? hotMeal.longitude : '',
-            latitude: hotMeal.latitude ? hotMeal.latitude : ''
+            name_of_program: hotMeal.name_of_program,
+            day_time: hotMeal.day_time,
+            location: hotMeal.location,
+            meal_served: hotMeal.meal_served,
+            people_served: hotMeal.people_served,
+            longitude: hotMeal.longitude,
+            latitude: hotMeal.latitude
           }
         };
         
