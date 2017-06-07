@@ -62,7 +62,7 @@
   "homepage": "https://github.com/clcuevas/pocket_outreach_backend#readme",
   "apidoc": {
     "title": "Pocket Outreach API",
-    "description": "This is the REST API for Pocket Outreach, a web app designed to connect people in need with resources in their area. The areas we currently cover are: Seattle, central east NC",
+    "description": "This is the REST API for Pocket Outreach, a web app designed to connect people in need with resources in their area. The areas we currently cover are: Seattle and central east NC. We are an open source project, check us out <a style=\"font-size: 24px; line-height: 40px\" href=\"https://github.com/clcuevas/pocket_outreach_backend\">our GitHub repo</a>. ",
     "name": "Pocket Outreach API",
     "sampleUrl": "https://data.pocketoutreach.org",
     "url": "https://data.pocketoutreach.org"

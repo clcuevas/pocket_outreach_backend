@@ -13,6 +13,7 @@ const HotMealLocation = require('../../models/HotMealLocation');
 const getHotMealsTestData = require('./getHotMealsTestData.json');
 
 describe('getHotMeals', () => {
+  // eslint-disable-next-line no-unused-vars
   let hotMealLocations;
 
   before(function(done) {
@@ -41,7 +42,8 @@ describe('getHotMeals', () => {
     getHotMeals(req, {}, (err) => {
       if (err) done(err);
       expect(req.returnVal.data.length).to.equal(5);
-      expect(req.returnVal.data[0]._doc).to.have.all.keys('day_time', 'location', 'meal_served', 'name_of_program', 'people_served', 'longitude', 'latitude', '_id', '__v');
+      expect(req.returnVal.data[0]).to.have.all.keys('type', 'id', 'attributes');
+      expect(req.returnVal.data[0].attributes).to.have.all.keys('day_time', 'location', 'meal_served', 'name_of_program', 'people_served', 'longitude', 'latitude');
       expect(req.returnVal.status).to.equal(200);
       done();
     });
@@ -57,7 +59,8 @@ describe('getHotMeals', () => {
     getHotMeals(req, {}, (err) => {
       if (err) done(err);
       expect(req.returnVal.data.length).to.equal(2);
-      expect(req.returnVal.data[0]._doc).to.have.all.keys('day_time', 'location', 'meal_served', 'name_of_program', 'people_served', 'longitude', 'latitude', '_id', '__v');
+      expect(req.returnVal.data[0]).to.have.all.keys('type', 'id', 'attributes');
+      expect(req.returnVal.data[0].attributes).to.have.all.keys('day_time', 'location', 'meal_served', 'name_of_program', 'people_served', 'longitude', 'latitude');
       expect(req.returnVal.status).to.equal(200);
       done();
     });
@@ -74,11 +77,41 @@ describe('getHotMeals', () => {
     getHotMeals(req, {}, (err) => {
       if (err) done(err);
       expect(req.returnVal.data.length).to.equal(5);
-      expect(req.returnVal.data[0]._id).to.deep.equal(hotMealLocations[4]._id);
-      expect(req.returnVal.data[1]._id).to.deep.equal(hotMealLocations[3]._id);
-      expect(req.returnVal.data[2]._id).to.deep.equal(hotMealLocations[2]._id);
-      expect(req.returnVal.data[3]._id).to.deep.equal(hotMealLocations[0]._id);
-      expect(req.returnVal.data[4]._id).to.deep.equal(hotMealLocations[1]._id);
+      expect(req.returnVal.data[0].attributes.name_of_program).to.equal(getHotMealsTestData[4].name_of_program);
+      expect(req.returnVal.data[1].attributes.name_of_program).to.equal(getHotMealsTestData[3].name_of_program);
+      expect(req.returnVal.data[2].attributes.name_of_program).to.equal(getHotMealsTestData[2].name_of_program);
+      expect(req.returnVal.data[3].attributes.name_of_program).to.equal(getHotMealsTestData[0].name_of_program);
+      expect(req.returnVal.data[4].attributes.name_of_program).to.equal(getHotMealsTestData[1].name_of_program);
+      expect(req.returnVal.data[0].attributes.location).to.equal(getHotMealsTestData[4].location);
+      expect(req.returnVal.data[1].attributes.location).to.equal(getHotMealsTestData[3].location);
+      expect(req.returnVal.data[2].attributes.location).to.equal(getHotMealsTestData[2].location);
+      expect(req.returnVal.data[3].attributes.location).to.equal(getHotMealsTestData[0].location);
+      expect(req.returnVal.data[4].attributes.location).to.equal(getHotMealsTestData[1].location);
+      expect(req.returnVal.data[0].attributes.latitude).to.equal(getHotMealsTestData[4].latitude);
+      expect(req.returnVal.data[1].attributes.latitude).to.equal(getHotMealsTestData[3].latitude);
+      expect(req.returnVal.data[2].attributes.latitude).to.equal(getHotMealsTestData[2].latitude);
+      expect(req.returnVal.data[3].attributes.latitude).to.equal(getHotMealsTestData[0].latitude);
+      expect(req.returnVal.data[4].attributes.latitude).to.equal(getHotMealsTestData[1].latitude);
+      expect(req.returnVal.data[0].attributes.longitude).to.equal(getHotMealsTestData[4].longitude);
+      expect(req.returnVal.data[1].attributes.longitude).to.equal(getHotMealsTestData[3].longitude);
+      expect(req.returnVal.data[2].attributes.longitude).to.equal(getHotMealsTestData[2].longitude);
+      expect(req.returnVal.data[3].attributes.longitude).to.equal(getHotMealsTestData[0].longitude);
+      expect(req.returnVal.data[4].attributes.longitude).to.equal(getHotMealsTestData[1].longitude);
+      expect(req.returnVal.data[0].attributes.day_time).to.equal(getHotMealsTestData[4].day_time);
+      expect(req.returnVal.data[1].attributes.day_time).to.equal(getHotMealsTestData[3].day_time);
+      expect(req.returnVal.data[2].attributes.day_time).to.equal(getHotMealsTestData[2].day_time);
+      expect(req.returnVal.data[3].attributes.day_time).to.equal(getHotMealsTestData[0].day_time);
+      expect(req.returnVal.data[4].attributes.day_time).to.equal(getHotMealsTestData[1].day_time);
+      expect(req.returnVal.data[0].attributes.meal_served).to.equal(getHotMealsTestData[4].meal_served);
+      expect(req.returnVal.data[1].attributes.meal_served).to.equal(getHotMealsTestData[3].meal_served);
+      expect(req.returnVal.data[2].attributes.meal_served).to.equal(getHotMealsTestData[2].meal_served);
+      expect(req.returnVal.data[3].attributes.meal_served).to.equal(getHotMealsTestData[0].meal_served);
+      expect(req.returnVal.data[4].attributes.meal_served).to.equal(getHotMealsTestData[1].meal_served);
+      expect(req.returnVal.data[0].attributes.people_served).to.equal(getHotMealsTestData[4].people_served);
+      expect(req.returnVal.data[1].attributes.people_served).to.equal(getHotMealsTestData[3].people_served);
+      expect(req.returnVal.data[2].attributes.people_served).to.equal(getHotMealsTestData[2].people_served);
+      expect(req.returnVal.data[3].attributes.people_served).to.equal(getHotMealsTestData[0].people_served);
+      expect(req.returnVal.data[4].attributes.people_served).to.equal(getHotMealsTestData[1].people_served);
       expect(req.returnVal.status).to.equal(200);
       done();
     });
@@ -96,10 +129,9 @@ describe('getHotMeals', () => {
     getHotMeals(req, {}, (err) => {
       if (err) done(err);
       expect(req.returnVal.data.length).to.equal(3);
-      expect(req.returnVal.data[0].location).to.equal('5710 22nd Ave. NW  Seattle');
-      expect(req.returnVal.data[0]._id).to.deep.equal(hotMealLocations[4]._id);
-      expect(req.returnVal.data[1]._id).to.deep.equal(hotMealLocations[3]._id);
-      expect(req.returnVal.data[2]._id).to.deep.equal(hotMealLocations[2]._id);
+      expect(req.returnVal.data[0].attributes.name_of_program).to.deep.equal(getHotMealsTestData[4].name_of_program);
+      expect(req.returnVal.data[1].attributes.name_of_program).to.deep.equal(getHotMealsTestData[3].name_of_program);
+      expect(req.returnVal.data[2].attributes.name_of_program).to.deep.equal(getHotMealsTestData[2].name_of_program);
       expect(req.returnVal.status).to.equal(200);
       done();
     });

@@ -14,7 +14,7 @@ const getDistanceFromLatLng = require('../../../../lib/getDistanceFromLatLng/get
  * @param {Object} res - the express response object
  * @param { Function } next - callback to call next middleware
  */
-function getClosestHotMeal(req, res, next) {
+function getHotMeals(req, res, next) {
   // if the correct queries are not included, return bad request and error message
   if ((req.query && !req.query.latitude && req.query.longitude) || (req.query && req.query.latitude && !req.query.longitude)) {
     req.returnVal = {
@@ -25,44 +25,44 @@ function getClosestHotMeal(req, res, next) {
       } ]
     };
     next();
-  } else if (req.query && req.query.latitude && req.query.longitude) {
+  } else {
     HotMealLocation.find((error, hotMealLocations) => {
       if (error) next(error);
       req.returnVal = {};
       const hotMeals = [];
-      // loop over the hotMealLocations and add distance to locations with latitude and longitude and push them into the hotMeals array
+      // loop over the hotMealLocations and create resource objects
       for (const hotMeal of hotMealLocations) {
-        if (!!hotMeal.latitude && !!hotMeal.longitude) {
-          hotMeal.distance = getDistanceFromLatLng(req.query.latitude, req.query.longitude, hotMeal.latitude, hotMeal.longitude);
-          hotMeals.push(hotMeal);
+        const resourceObject = {
+          id: hotMeal._id,
+          type: 'HotMealLocation',
+          attributes: {
+            name_of_program: hotMeal.name_of_program ? hotMeal.name_of_program : '',
+            day_time: hotMeal.day_time ? hotMeal.day_time : '',
+            location: hotMeal.location ? hotMeal.location : '',
+            meal_served: hotMeal.meal_served ? hotMeal.meal_served : '',
+            people_served: hotMeal.people_served ? hotMeal.people_served : '',
+            longitude: hotMeal.longitude ? hotMeal.longitude : '',
+            latitude: hotMeal.latitude ? hotMeal.latitude : ''
+          }
+        };
+        
+        if (req.query && req.query.latitude && req.query.longitude && !!hotMeal.latitude && !!hotMeal.longitude) {
+          resourceObject.attributes.distance = getDistanceFromLatLng(req.query.latitude, req.query.longitude, hotMeal.latitude, hotMeal.longitude);
         }
+        hotMeals.push(resourceObject);
       }
-
-      hotMeals.sort((a, b) => {
-        return a.distance - b.distance;
-      });
-
-      const limit = parseInt(req.query.limit, 10);
-      req.returnVal.data = !isNaN(limit) ? hotMeals.slice(0, req.query.limit) : hotMeals;
-      req.returnVal.status = 200;
-      next();
-    });
-  }  else {
-    HotMealLocation.find((error, hotMealLocations) => {
-      if (error) next(error);
-      req.returnVal = {};
-      const hotMeals = [];
-
-      for (const hotMealLocation of hotMealLocations) {
-        hotMeals.push(hotMealLocation);
+      if (req.query && req.query.latitude && req.query.longitude) {
+        hotMeals.sort((a, b) => {
+          return a.attributes.distance - b.attributes.distance;
+        });
       }
 
       const limit = req.query ? parseInt(req.query.limit, 10) : NaN;
-      req.returnVal.data = !isNaN(limit) ? hotMeals.slice(0, req.query.limit) : hotMeals;
+      req.returnVal.data = !isNaN(limit) ? hotMeals.slice(0, limit) : hotMeals;
       req.returnVal.status = 200;
       next();
     });
   }
 }
 
-module.exports = exports = getClosestHotMeal;
+module.exports = exports = getHotMeals;
