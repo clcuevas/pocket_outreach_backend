@@ -3,7 +3,7 @@
 const expect = require('chai').expect;
 const sinon = require('sinon');
 
-const getFoodBankEndPoint = require('./getFoodBankEndpoint');
+const getFoodBankEndPoint = require('./getFoodBanksEndpoint');
 
 describe('getFoodBankEndpoint', function() {
 

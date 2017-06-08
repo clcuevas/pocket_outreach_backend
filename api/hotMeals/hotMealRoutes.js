@@ -5,7 +5,7 @@ const config = require('config');
 const socrataHotMealsAPI = config.get('resources.socrata.hot_meals');
 const addLatLngFromGoogle = require('./lib/addLatLngFromGoogle/addLatLngFromGoogle');
 const getHotMealLocations = require('./lib/getHotMealLocations/getHotMealLocations');
-const getHotMeals = require('./middleware/getHotMeals/getHotMeals');
+const getFoodBanks = require('./middleware/getHotMeals/getHotMeals');
 const getClosestHotMealEndpoint = require('./middleware/hotMealEndPoints/hotMealEndPoints');
 const HotMealLocation = require('./models/HotMealLocation');
 const errorHandler = require('../../lib/errorHandler/errorHandler');
@@ -107,6 +107,6 @@ if (process.env.NODE_ENV === 'development' || 'dev') {
  * }
  */
 
-router.get('/', getHotMeals, getClosestHotMealEndpoint);
+router.get('/', getFoodBanks, getClosestHotMealEndpoint);
 
 module.exports = exports = router;

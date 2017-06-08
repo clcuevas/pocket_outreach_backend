@@ -23,17 +23,18 @@ describe('getHotMeals', () => {
       .then(() => {
         mongoose.connect('mongodb://example.com/TestingDB', (err) => {
           if (err) done(err);
-          done();
+          const promises = [];
+          for (const location of getHotMealsTestData) {
+            const hotMealLocation = new HotMealLocation(location);
+            promises.push(hotMealLocation.save());
+          }
+          Promise.all(promises)
+            .then(savedHotMealLocations => {
+              hotMealLocations = savedHotMealLocations;
+              done();
+            });
         });
       });
-
-    const promises = [];
-    for (const location of getHotMealsTestData) {
-      const hotMealLocation = new HotMealLocation(location);
-      promises.push(hotMealLocation.save());
-    }
-    Promise.all(promises)
-      .then(savedHotMealLocations => hotMealLocations = savedHotMealLocations);
   });
 
   it('should return all venues unsorted with a hot meal when no limit is set and neither latitude nor longitude are included', (done) => {

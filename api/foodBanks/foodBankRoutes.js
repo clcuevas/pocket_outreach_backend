@@ -6,8 +6,8 @@ const config = require('config');
 const socrataFoodBanksAPI = config.get('resources.socrata.food_banks');
 
 const errorHandler = require('../../lib/errorHandler/errorHandler');
-const getFoodBank = require('./middleware/getFoodBank/getFoodBank');
-const getFoodBankEndpoint = require('./middleware/getFoodBankEndpoint/getFoodBankEndpoint');
+const getFoodBanks = require('./middleware/getFoodBanks/getFoodBanks');
+const getFoodBankEndpoint = require('./middleware/getFoodBanksEndpoint/getFoodBanksEndpoint');
 const getSeattleFoodBanks = require('./lib/getSeattleFoodBanks/getSeattleFoodBanks');
 const getCentralEastNCFoodBank = require('./lib/getCentralEastNCFoodBanks/getCentralEastNCFoodBanks');
 const FoodBank = require('./models/FoodBank');
@@ -77,6 +77,6 @@ if (process.env.NODE_ENV === 'development' || 'dev') {
  *    }
  */
 
-router.get('/food-banks/closest', getFoodBank, getFoodBankEndpoint);
+router.get('/', getFoodBanks, getFoodBankEndpoint);
 
 module.exports = exports = router;
