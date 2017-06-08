@@ -29,14 +29,14 @@ if (process.env.NODE_ENV === 'development' || 'dev') {
 
 /**
  * @apiName get
- * @api {get} /api/hot-meal-locations request hot meal locations
+ * @api {get} /api/hot-meal-locations get hot meal locations
  * @apiGroup hot meals
  * @apiVersion 2.0.0
  * @apiParam {Number} latitude Optional (Mandatory if longitude is included). User's latitude to query by. Submitted as a query string and formatted in signed degree format.
  * @apiParam {Number} longitude Optional (Mandatory if latitude is included). User's longitude to query by. Submitted as a query string and formatted in signed degree format.
  * @apiParam {Number} limit Optional the number of food bank locations to be returned. If not included, all hot meal locations will be returned.
  * @apiExample Example Usage:
- * https://data.pocketoutreach.org/api/hot-meal-locations/?latitude=47.673554&longitude=-122.387062&limit=3
+ * https://data.pocketoutreach.org/api/hot-meal-locations?latitude=47.673554&longitude=-122.387062&limit=3
  * @apiSuccess {Number} status The http status of the response
  * @apiSuccess {Object[]} data  Array of resource objects representing hot meal locations
  * @apiSuccess {String} data.type The type of data being returned in the resource object

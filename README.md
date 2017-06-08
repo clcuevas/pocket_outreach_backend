@@ -21,9 +21,9 @@ We are working to expand the locations we serve and expand the types of services
 
 ## Documentation
 
-Complete documentation for consuming the REST API is [available here](https://rawgit.com/clcuevas/pocket_outreach_backend/master/doc/index.html#api-food_banks-get) 
+Complete documentation for consuming the REST API is [available here](https://data.pocketoutreach.com) 
 
-For developers interested in contributing, documentation on the methods used in this API are [available here](https://rawgit.com/clcuevas/pocket_outreach_backend/master/out/index.html)
+For developers interested in contributing, documentation on the methods used in this API are [available here](https://data.pocketoutreach.com/docs)
  
  ## Prerequisites
  
