@@ -39,7 +39,6 @@ function getFoodBanks(req, res, next) {
           type: 'FoodBank',
           attributes: {
             address: foodBank.address,
-            city_feature: foodBank.city_feature,
             common_name: foodBank.common_name,
             website: foodBank.website,
             longitude: foodBank.longitude,

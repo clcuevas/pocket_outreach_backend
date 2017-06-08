@@ -44,7 +44,7 @@ describe('getFoodBanks', () => {
       if (err) done(err);
       expect(req.returnVal.data.length).to.equal(5);
       expect(req.returnVal.data[0]).to.have.all.keys('type', 'id', 'attributes');
-      expect(req.returnVal.data[0].attributes).to.have.all.keys('address', 'city_feature', 'common_name', 'website', 'longitude', 'latitude');
+      expect(req.returnVal.data[0].attributes).to.have.all.keys('address', 'common_name', 'website', 'longitude', 'latitude');
       expect(req.returnVal.status).to.equal(200);
       done();
     });
@@ -61,7 +61,7 @@ describe('getFoodBanks', () => {
       if (err) done(err);
       expect(req.returnVal.data.length).to.equal(2);
       expect(req.returnVal.data[0]).to.have.all.keys('type', 'id', 'attributes');
-      expect(req.returnVal.data[0].attributes).to.have.all.keys('address', 'city_feature', 'common_name', 'website', 'longitude', 'latitude');
+      expect(req.returnVal.data[0].attributes).to.have.all.keys('address', 'common_name', 'website', 'longitude', 'latitude');
       expect(req.returnVal.status).to.equal(200);
       done();
     });
