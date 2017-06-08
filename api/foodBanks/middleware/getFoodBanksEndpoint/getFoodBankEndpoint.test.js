@@ -42,7 +42,12 @@ describe('getFoodBankEndpoint', function() {
     Promise.resolve(getFoodBankEndPoint({}, res))
       .then(() => {
         expect(res.status.calledWith(400), 'did not send 400 when missing returnVal').to.equal(true);
-        expect(res.json.calledWith({ 'error' : 'sorry we couldn\'t interpret you\'re request' }), 'did not send error message when missing returnVal').to.equal(true);
+        expect(res.json.calledWith({
+          errors: [ {
+            error: 'sorry we couldn\'t interpret you\'re request',
+            status: 400
+          } ]
+        }), 'did not send error message when missing returnVal').to.equal(true);
         done();
       })
       .catch(err => done(err) );
