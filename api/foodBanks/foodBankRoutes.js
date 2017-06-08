@@ -54,44 +54,47 @@ if (process.env.NODE_ENV === 'development' || 'dev') {
  * @apiSuccess {String} data.attributes.latitude Latitude of hot meal location
  * @apiSuccess {String} data.attributes.longitude Longitude of hot meal location
  * @apiSuccessExample {JSON} Example Success Response:
- * [
- *  {
- *    "id": "5928c8620c2ee52b1f4067f1",
- *    "type": "FoodBank",
- *    "attributes": {
- *      "address": "9747 Greenwood Ave N",
- *      "common_name": "Volunteers Of America-Greenwood",
- *      "website": "http://www.voaww.org/voa3f.cfm?SectionGroupsID=11&SectionListsID=11&PageID=234",
- *      "longitude": "-122.355521",
- *      "latitude": "47.699736",
- *      "distance": 0
+ * {
+ *  "data": [
+ *    {
+ *      "id": "5928c8620c2ee52b1f4067f1",
+ *      "type": "FoodBank",
+ *      "attributes": {
+ *        "address": "9747 Greenwood Ave N",
+ *        "common_name": "Volunteers Of America-Greenwood",
+ *        "website": "http://www.voaww.org/voa3f.cfm?SectionGroupsID=11&SectionListsID=11&PageID=234",
+ *        "longitude": "-122.355521",
+ *        "latitude": "47.699736",
+ *        "distance": 0
+ *      }
+ *    },
+ *    {
+ *      "id": "5928c8630c2ee52b1f4067fc",
+ *      "type": "FoodBank",
+ *      "attributes": {
+ *        "address": "7500 Greenwood Ave N",
+ *        "common_name": "Phinney Ridge Food Bank",
+ *        "website": "http://www.prlc.org/foodbank.htm",
+ *        "longitude": "-122.355178",
+ *        "latitude": "47.683311",
+ *        "distance": 1.1349715197312662
+ *      }
+ *    },
+ *    {
+ *      "id": "5928c8620c2ee52b1f4067d8",
+ *      "type": "FoodBank",
+ *      "attributes": {
+ *        "address": "7005 24th Ave NW",
+ *        "common_name": "Ballard Food Bank",
+ *        "website": "http://www.ballardfoodbank.org",
+ *        "longitude": "-122.387661",
+ *        "latitude": "47.679582",
+ *        "distance": 2.042938429556082
+ *      }
  *    }
- *  },
- *  {
- *    "id": "5928c8630c2ee52b1f4067fc",
- *    "type": "FoodBank",
- *    "attributes": {
- *      "address": "7500 Greenwood Ave N",
- *      "common_name": "Phinney Ridge Food Bank",
- *      "website": "http://www.prlc.org/foodbank.htm",
- *      "longitude": "-122.355178",
- *      "latitude": "47.683311",
- *      "distance": 1.1349715197312662
- *    }
- *  },
- *  {
- *    "id": "5928c8620c2ee52b1f4067d8",
- *    "type": "FoodBank",
- *    "attributes": {
- *      "address": "7005 24th Ave NW",
- *      "common_name": "Ballard Food Bank",
- *      "website": "http://www.ballardfoodbank.org",
- *      "longitude": "-122.387661",
- *      "latitude": "47.679582",
- *      "distance": 2.042938429556082
- *    }
- *  }
- * ]
+ *  ],
+ *  "status": 200
+ * }
  * @apiError (Error 400) {String} error
  * error message
  * @apiErrorExample {JSON} Error Response:

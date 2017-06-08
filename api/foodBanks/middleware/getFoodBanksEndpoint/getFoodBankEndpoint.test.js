@@ -12,10 +12,10 @@ describe('getFoodBankEndpoint', function() {
     const req = {
       returnVal: {
         status: 420,
-        data: {
+        data: [ {
           state: 'of mind',
           needs: 'tacos'
-        }
+        } ]
       }
     };
 
@@ -27,7 +27,7 @@ describe('getFoodBankEndpoint', function() {
     Promise.resolve(getFoodBankEndPoint(req, res))
       .then(() => {
         expect(res.status.calledWith(420), 'did not set status when returnVal.status was included').to.equal(true);
-        expect(res.json.calledWith(req.returnVal.data), 'did not send data when returnVal.data was included ').to.equal(true);
+        expect(res.json.calledWith(req.returnVal), 'did not send data when returnVal.data was included ').to.equal(true);
         done();
       })
       .catch(err => done(err) );
