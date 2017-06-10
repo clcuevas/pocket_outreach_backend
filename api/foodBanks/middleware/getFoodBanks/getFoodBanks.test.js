@@ -168,8 +168,8 @@ describe('getFoodBanks', () => {
         longitude: '-122.3875480'
       }
     };
-    // eslint-disable-next-line
-    let getHotMeals = proxyquire('./getFoodBanks', {'../../models/FoodBank': foodBankStub});
+    // eslint-disable-next-line prefer-const
+    let getHotMeals = proxyquire('./getFoodBanks', { '../../models/FoodBank': foodBankStub });
 
     getHotMeals(req, {}, (err) => {
       expect(err).to.equal(testError);

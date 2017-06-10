@@ -95,8 +95,8 @@ describe('getSeattleFoodBanks', function() {
       expect(error).to.equal(testError);
       done();
     }
-    // eslint-disable-next-line
-    let getSeattleFoodBanks = proxyquire('./getSeattleFoodBanks', {'../../models/FoodBank': FoodBankStub});
+    // eslint-disable-next-line prefer-const
+    let getSeattleFoodBanks = proxyquire('./getSeattleFoodBanks', { '../../models/FoodBank': FoodBankStub });
 
     getSeattleFoodBanks(testUrl, errorHandlerStub);
 

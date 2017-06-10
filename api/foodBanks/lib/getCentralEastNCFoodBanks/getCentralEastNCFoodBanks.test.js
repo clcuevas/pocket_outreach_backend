@@ -99,8 +99,8 @@ describe('getCentralEastNCFoodBanks', function() {
     function errorHandlerStub(error) {
       expect(error).to.equal(testError);
     }
-    // eslint-disable-next-line
-    let getCentralEastNCFoodBanks = proxyquire('./getCentralEastNCFoodBanks', {'../../models/FoodBank': FoodBankStub});
+    // eslint-disable-next-line prefer-const
+    let getCentralEastNCFoodBanks = proxyquire('./getCentralEastNCFoodBanks', { '../../models/FoodBank': FoodBankStub });
 
     getCentralEastNCFoodBanks(testUrl, errorHandlerStub);
     done();
