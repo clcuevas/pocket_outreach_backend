@@ -6,7 +6,6 @@ const app = express();
 const path = require('path');
 const compression = require('compression');
 const moment = require('moment');
-const winston = require('winston');
 const mongoose = require('mongoose');
 mongoose.Promise = Promise;
 const clc = require('cli-color');
@@ -18,47 +17,35 @@ const port = configuration.server.port;
 const corsOptions = configuration.corsOptions;
 const mongoUri = `${configuration.database.host}/${configuration.database.name}`;
 const serverStartTime = moment(new Date()).format('LLLL');
-const logFilePath = path.join('log', 'pocket_outreach.log');
+const errorHandler = require('./lib/errorHandler/errorHandler');
+const catchAll = require('./lib/catchAll/catchAll');
 const api = require('./api');
-
-winston.configure({
-  transports: [
-    new (winston.transports.Console)(),
-    new (winston.transports.File)({
-      name: 'error-file',
-      filename: logFilePath,
-      level: 'error'
-    })
-  ]
-});
+const docs = require('./docs');
 
 mongoose.connect(mongoUri)
-  .then(
-  () => {
-    winston.info(clc.cyan('successfully connected to database'));
+  .then( () => {
+    if (process.env.NODE_ENV !== 'production') {
+      // eslint-disable-next-line no-console
+      console.info(clc.cyan('successfully connected to database'));
+    }
   },
   (err) => {
-    winston.error(err);
+    errorHandler(err);
   }
 );
 
 app.use(cors(corsOptions));
-app.use(express.static(path.join(__dirname, 'doc')));
-app.use(express.static(path.join(__dirname, 'out')));
 app.use(compression());
+app.use(express.static(path.join(__dirname, 'out_apidoc')));
+app.use(express.static(path.join(__dirname, 'out')));
 app.use('/api', api);
-app.get('/', (req, res) => {
-  const apiDocsIndex = path.join(__dirname, 'doc', 'index.html');
-  res.sendfile(apiDocsIndex);
-});
-app.get('/docs', (req, res) => {
-  const jsDocIndex = path.join(__dirname, 'out', 'index.html');
-  res.sendfile(jsDocIndex);
-});
+app.use('/', docs);
+app.get('*', catchAll);
 
 app.listen(port, () => {
   if (process.env.NODE_ENV !== 'production') {
-    winston.info(clc.yellow(`server started on port ${port} at ${serverStartTime}`));
+    // eslint-disable-next-line no-console
+    console.info(clc.yellow(`server started on port ${port} at ${serverStartTime}`));
   }
 });
 
