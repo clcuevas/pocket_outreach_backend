@@ -61,8 +61,6 @@ The rest of the commands are listed below.
   - `npm start`
 - Start server in development mode (hot reloading, verbose errors in console)
   - `npm run dev`
-- Start server in debug mode (for debugging in WebStorm)
-   - `npm run debug`
 - Start MongoDB
   - `npm run mongod`
 - Run tests
