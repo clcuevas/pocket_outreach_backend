@@ -4,3 +4,5 @@
 /.idea/
 /.nyc_output
 /coverage
+/out
+/out_apidoc

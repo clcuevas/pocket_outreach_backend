@@ -115,8 +115,8 @@ describe('getHotMealLocations', function() {
         return callback(new Error('out of beer'));
       }
     };
-    // eslint-disable-next-line
-    let getHotMealLocations = proxyquire('./getHotMealLocations', {'../../models/HotMealLocation': HotMealLocationStub});
+    // eslint-disable-next-line prefer-const
+    let getHotMealLocations = proxyquire('./getHotMealLocations', { '../../models/HotMealLocation': HotMealLocationStub });
 
     getHotMealLocations(testUrl, addLatLngSpy);
     setTimeout(() => {

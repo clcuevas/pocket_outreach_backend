@@ -101,8 +101,8 @@ describe('addLatLngFromGoogle', function() {
       expect(err.message).to.deep.equal( 'the sky is falling' );
       done();
     }
-    // eslint-disable-next-line
-    let addLatLngFromGoogle = proxyquire('./addLatLngFromGoogle', { '../../../../lib/errorHandler/errorHandler': errorHandlerSpy});
+    // eslint-disable-next-line prefer-const
+    let addLatLngFromGoogle = proxyquire('./addLatLngFromGoogle', { '../../../../lib/errorHandler/errorHandler': errorHandlerSpy });
 
     HotMealLocation.create(hotMealTestData, (err, hotMeal) => {
       if (err) done(err);

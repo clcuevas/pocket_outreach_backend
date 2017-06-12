@@ -11,6 +11,7 @@
     "linebreak-style": [ "error", "unix" ],
     "quotes": [ "error", "single" ],
     "semi": [ "error", "always" ],
+    "newline-per-chained-call": [ "error", { "ignoreChainWithDepth": 2 } ],
     "no-console": [
       "warn",
       { "allow": [ "warn", "error" ] }

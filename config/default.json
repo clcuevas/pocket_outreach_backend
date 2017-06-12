@@ -6,6 +6,10 @@
     "database": {
       "host": "mongodb://localhost:27017",
       "name": "pocket_outreach_dev"
+    },
+    "corsOptions": {
+      "origin": "http://localhost:4200",
+      "optionsSuccessStatus": 200
     }
   },
   "resources": {
@@ -14,7 +18,8 @@
     },
     "socrata": {
       "food_banks": {
-        "seattle": "http://data.seattle.gov/resource/3c4b-gdxv.json"
+        "seattle": "http://data.seattle.gov/resource/3c4b-gdxv.json",
+        "central_east_north_carolina": "https://brigades.opendatanetwork.com/resource/5fy3-sjg8.json"
       },
       "hot_meals": {
         "seattle": "http://data.seattle.gov/resource/47rs-c243.json"

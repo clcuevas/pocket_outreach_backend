@@ -5,8 +5,8 @@ const config = require('config');
 const socrataHotMealsAPI = config.get('resources.socrata.hot_meals');
 const addLatLngFromGoogle = require('./lib/addLatLngFromGoogle/addLatLngFromGoogle');
 const getHotMealLocations = require('./lib/getHotMealLocations/getHotMealLocations');
-const getClosestHotMeal = require('./middleware/getClosestHotMeal/getClosestHotMeal');
-const getClosestHotMealEndpoint = require('./middleware/getClosestHotMealEndpoint/getClosestHotMealEndpoint');
+const getFoodBanks = require('./middleware/getHotMeals/getHotMeals');
+const getClosestHotMealEndpoint = require('./middleware/hotMealEndPoints/hotMealEndPoints');
 const HotMealLocation = require('./models/HotMealLocation');
 const errorHandler = require('../../lib/errorHandler/errorHandler');
 
@@ -29,49 +29,59 @@ if (process.env.NODE_ENV === 'development' || 'dev') {
 
 /**
  * @apiName get
- * @api {get} /api/hot-meal/closest?latitude=LATITUDE_VALUE&longitude=LONGITUDE_VALUE request closest hot meal locations
+ * @api {get} /api/hot-meal-locations get hot meal locations
  * @apiGroup hot meals
- * @apiVersion 1.0.0
- * @apiParam {String} latitude Mandatory. User's latitude to query by. Submitted as a query string and formatted in signed degree format.
- * @apiParam {String} longitude Mandatory. User's longitude to query by. Submitted as a query string and formatted in signed degree format.
+ * @apiVersion 2.0.0
+ * @apiParam {Number} latitude Optional (Mandatory if longitude is included). User's latitude to query by. Submitted as a query string and formatted in signed degree format.
+ * @apiParam {Number} longitude Optional (Mandatory if latitude is included). User's longitude to query by. Submitted as a query string and formatted in signed degree format.
+ * @apiParam {Number} limit Optional the number of food bank locations to be returned. If not included, all hot meal locations will be returned.
  * @apiExample Example Usage:
- * http://example.com/api/hot-meal/closest?latitude=47.673554&longitude=-122.387062
- * @apiSuccess {Object[]} hotMealLocations  Array of hot meal location objects
- * @apiSuccess {String} hotMealLocations._id  The MongoDB id of the hot meal location
- * @apiSuccess {String} hotMealLocations.name_of_program Name of hot meal program
- * @apiSuccess {String} hotMealLocations.day_time  The time hot meals are served
- * @apiSuccess {String} hotMealLocations.location The address of the hot meal location
- * @apiSuccess {String} hotMealLocations.people_served  People served by hot meal location
- * @apiSuccess {String} hotMealLocations.latitude Latitude of hot meal location
- * @apiSuccess {String} hotMealLocations.longitude Longitude of hot meal location
- * @apiSuccessExample {json} Example Success Response:
- *    [
- *      {
- *        "_id": "59152be26b9ac2febf31aea4",
+ * https://data.pocketoutreach.org/api/hot-meal-locations?latitude=47.673554&longitude=-122.387062&limit=3
+ * @apiSuccess {Number} status The http status of the response
+ * @apiSuccess {Object[]} data  Array of resource objects representing hot meal locations
+ * @apiSuccess {String} data.type The type of data being returned in the resource object
+ * @apiSuccess {String} data.id  The id of the hot meal location
+ * @apiSuccess {Object} data.attributes The values relating to the hot meal location
+ * @apiSuccess {String} data.attributes.name_of_program Name of hot meal program
+ * @apiSuccess {String} data.attributes.day_time  The time hot meals are served
+ * @apiSuccess {String} data.attributes.location The address of the hot meal location
+ * @apiSuccess {String} data.attributes.people_served  People served by hot meal location
+ * @apiSuccess {String} data.attributes.latitude Latitude of hot meal location
+ * @apiSuccess {String} data.attributes.longitude Longitude of hot meal location
+ * @apiSuccessExample {JSON} Example Success Response:
+ * {
+ *  "data": [
+ *    {
+ *      "type": "HotMealLocation",
+ *      "id": "5928c8630c2ee52b1f40681c",
+ *      "attributes": {
  *        "name_of_program": "Saint Luke's Episcopal Church",
- *        "__v": 0,
  *        "day_time": "Fridays: 11:30 A.M. - 12:30 P.M.",
  *        "location": "5710 22nd Ave. NW  Seattle",
  *        "meal_served": "Lunch",
  *        "people_served": "OPEN TO ALL",
  *        "longitude": "-122.3844451",
  *        "latitude": "47.6704036"
- *      },
- *      {
- *        "_id": "59152be26b9ac2febf31aeb9",
+ *      }
+ *    },
+ *    {
+ *      "type": "HotMealLocation",
+ *      "id": "5928c8630c2ee52b1f406875",
+ *      "attributes": {
  *        "name_of_program": "Monday Feeding Program",
- *        "__v": 0,
  *        "day_time": "Mondays: 12:30  - 1:00 P.M.",
  *        "location": "Woodland Park Pres. Church 225 N. 70th, Seattle",
  *        "meal_served": "Lunch",
  *        "people_served": "OPEN TO ALL",
  *        "longitude": "-122.355481",
  *        "latitude": "47.67938239999999"
- *      },
- *      {
- *        "_id": "59152be26b9ac2febf31aeb2",
+ *      }
+ *    },
+ *    {
+ *      "type": "HotMealLocation",
+ *      "id": "5928c8630c2ee52b1f40682e",
+ *      "attributes": {
  *        "name_of_program": "Phinney Neighborhood Association",
- *        "__v": 0,
  *        "day_time": "Tuesdays: 5:00 - 6:00 P.M.",
  *        "location": "St. John's Lutheran                 5515 Phinney Ave N., Seattle",
  *        "meal_served": "Dinner",
@@ -79,15 +89,24 @@ if (process.env.NODE_ENV === 'development' || 'dev') {
  *        "longitude": "-122.354731",
  *        "latitude": "47.6688384"
  *      }
- *    ]
+ *    }
+ *  ],
+ *  "status": 200
+ * }
  * @apiError (Error 400) {String} error
  * error message
  * @apiErrorExample {JSON} Error Response:
- *    {
- *      "error": "Invalid or missing query string"
- *    }
+ * {
+ *   "errors": [
+ *     {
+ *       "error": "must provide both latitude and longitude in query",
+ *       "title": "query error",
+ *       "status": 400
+ *     }
+ *   ]
+ * }
  */
 
-router.get('/hot-meal/closest', getClosestHotMeal, getClosestHotMealEndpoint);
+router.get('/', getFoodBanks, getClosestHotMealEndpoint);
 
 module.exports = exports = router;

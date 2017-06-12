@@ -1,12 +1,13 @@
 {
   "name": "pocket_outreach_backend",
-  "version": "0.2.0",
-  "description": "This is the REST API for Pocket Outreach, a web app designed to connect people in need with resources in their area. The areas we currently cover are: Seattle",
+  "version": "0.4.0",
+  "description": "This is the REST API for Pocket Outreach, a web app designed to connect people in need with resources in their area. The areas we currently cover are: Seattle, central east NC",
   "main": "server.js",
   "dependencies": {
     "cli-color": "^1.2.0",
     "compression": "^1.6.2",
     "config": "^1.25.1",
+    "cors": "^2.8.3",
     "dotenv": "^4.0.0",
     "dotenv-safe": "^4.0.4",
     "express": "^4.15.2",
@@ -35,20 +36,19 @@
     "mockgoose": "^7.1.1",
     "nock": "^9.0.13",
     "nodemon": "^1.11.0",
-    "nyc": "^10.3.0",
+    "nyc": "^11.0.2",
     "proxyquire": "^1.7.11",
+    "rimraf": "^2.6.1",
     "sinon": "^2.1.0"
   },
   "scripts": {
     "test": "nyc ./node_modules/.bin/mocha --recursive api/**/*.test.js lib/**/*.test.js && nyc report --reporter=text-lcov | coveralls -service = travis-ci",
-    "start": "NODE_ENV=production node server.js | ./node_modules/.bin/mongod --dbpath=./data",
+    "start": "NODE_ENV=production node server.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "dev": "NODE_ENV=development ./node_modules/.bin/nodemon server.js | ./node_modules/.bin/mongod --dbpath=./data",
-    "debug": "node $NODE_DEBUG_OPTION server.js",
-    "start-mongo": "./node_modules/.bin/mongod --dbpath=./data",
-    "start-server": "NODE_ENV=development ./node_modules/.bin/nodemon server.js",
+    "dev": "NODE_ENV=development ./node_modules/.bin/nodemon server.js",
+    "mongod": "./node_modules/.bin/mongod --dbpath=./data",
     "lint": "./node_modules/.bin/eslint server.js && ./node_modules/.bin/eslint ./api/*.js",
-    "docs": "./node_modules/.bin/rimraf doc/ out/ && ./node_modules/.bin/apidoc -i api/ -o doc/ && ./node_modules/.bin/jsdoc api/ lib/ -r README.md"
+    "docs": "./node_modules/.bin/rimraf out_apidoc/ out/ && ./node_modules/.bin/apidoc -i api/ -o out_apidoc/ && ./node_modules/.bin/jsdoc api/ lib/ -r README.md"
   },
   "repository": {
     "type": "git",
@@ -62,7 +62,9 @@
   "homepage": "https://github.com/clcuevas/pocket_outreach_backend#readme",
   "apidoc": {
     "title": "Pocket Outreach API",
-    "version": "0.0.1",
-    "description": "backend server for Pocket Outreach a simple web app designed to connect homeless people to resources near them in the Seattle area"
+    "description": "This is the REST API for Pocket Outreach, a web app designed to connect people in need with resources in their area. The areas we currently cover are: Seattle and central east NC. We are an open source project, check us out <a style=\"font-size: 24px; line-height: 40px\" href=\"https://github.com/clcuevas/pocket_outreach_backend\">our GitHub repo</a>. ",
+    "name": "Pocket Outreach API",
+    "sampleUrl": "https://data.pocketoutreach.org",
+    "url": "https://data.pocketoutreach.org"
   }
 }
